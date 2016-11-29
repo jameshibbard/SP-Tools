@@ -1,0 +1,49 @@
+{
+  "name": "SP-Tools",
+  "version": "0.13.23",
+  "description": "A Chrome extension to help with various editing tasks",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/tests && exit 0",
+    "nightwatch": " node_modules/.bin/nightwatch --config tests/integration/nightwatch.json",
+    "lint": "eslint $FILE; exit 0",
+    "get-selenium": "wget --directory-prefix=tests/integration/bin http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar",
+    "get-chrome-driver": "wget --directory-prefix=tests/integration/bin https://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip",
+    "get-deps": "npm run get-selenium; npm run get-chrome-driver; unzip tests/integration/bin/chromedriver_linux64.zip -d tests/integration/bin/; rm tests/integration/bin/chromedriver_linux64.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sitepoint-editors/SP-Tools.git"
+  },
+  "private": true,
+  "keywords": [],
+  "author": {
+    "name": "James hibbard",
+    "email": "james.hibbard@sitepoint.com"
+  },
+  "contributors": [
+    {
+      "name": "Nilson Jacques",
+      "email": "nilson.jacques@sitepoint.com"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sitepoint-editors/SP-Tools/issues"
+  },
+  "homepage": "https://github.com/sitepoint-editors/SP-Tools#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "nightwatch": "^0.9.9"
+  }
+}

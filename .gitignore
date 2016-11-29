@@ -38,7 +38,6 @@ nb-configuration.xml
 .jshintrc
 
 # Node
-package.json
 node_modules/
 
 # Tests
