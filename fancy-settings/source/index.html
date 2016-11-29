@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>Settings Page</title>
+    <style>
+      input{
+        padding: 3px;
+        width: 500px;
+      }
+      div{
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>This is the settings page (such as it is)</h1>
+
+    <p>Set SitePoint Channel:</p>
+    <div>
+      <select id="sitepointChannel"></select>
+    </div>
+
+    <p>Parsely API Key: <span id="api-key-status"></span></p>
+    <div>
+      <input type="text" placeholder="Enter new API Key" id="parselyAPIKey"/>
+      <button class="parsleyAPISettings">Save</button>
+    </div>
+
+    <p>Parsely Secret Token: <span id="secret-token-status"></span></p>
+    <div>
+      <input type="text" placeholder="Enter new Secret Token" id="parselySecret"/>
+      <button class="parsleyAPISettings">Save</button>
+    </div>
+
+    <script src="../../lib/jquery-2.1.1.min.js"></script>
+    <script src="settings.js"></script>
+  </body>
+</html>

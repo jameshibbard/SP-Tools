@@ -1,0 +1,228 @@
+/* Hide WordPress update nag box and W3 Total Cache banner */
+#edge-mode, div.update-nag, #carbonads{
+  display: none !important;
+}
+
+.wp-editor-area.error {
+  border: 2px solid red !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.proofreader-main-row td {
+  padding: 2px 10px;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+}
+
+.proofreader-main-row.error {
+  background-color: #F2DEDE;
+}
+
+.headalyze {
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin-bottom: 15px;
+  border: 1px solid silver;
+  -webkit-user-select: none; /* Chrome/Safari */
+}
+
+.headalyze-bar {
+  height: 5px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c55854+0,f0cc55+50,7cc576+100 */
+  background: -moz-linear-gradient(left,  #c55854 0%, #f0cc55 50%, #7cc576 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c55854), color-stop(50%,#f0cc55), color-stop(100%,#7cc576)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #c55854 0%,#f0cc55 50%,#7cc576 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #c55854 0%,#f0cc55 50%,#7cc576 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #c55854 0%,#f0cc55 50%,#7cc576 100%); /* IE10+ */
+  background: linear-gradient(to right,  #c55854 0%,#f0cc55 50%,#7cc576 100%); /* W3C */
+  position: relative;
+}
+
+.headalyze-bar .pointer {
+  position: absolute;
+  left: 0;
+  top: -50%;
+  width: 7px;
+  height: 7px;
+  background-color: ivory;
+  border: 2px solid darkgray;
+  border-radius: 5px;
+  -webkit-transition: 1s ease-in-out;
+}
+
+.headalyze-info {
+  display: none;
+  margin: 5px;
+}
+
+.headalyze-info>div {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.headalyze-info div.positive {
+  color: #7cc576;
+}
+
+.headalyze-info div.negative {
+  color: #c55854;
+}
+
+.headalyze-info div.bold {
+  font-weight: bold;
+}
+
+.headalyze-info span.bold.score {
+  padding: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid darkgray;
+  background-color: lightgray;
+}
+
+.bandaid-button-title {
+  margin-left: 5px !important;
+}
+
+.headalyze-info ul {
+  list-style: inherit;
+  margin-left: 30px;
+}
+
+/* Modal window styles */
+
+#bandaid-modal {
+  z-index: 100000;
+  width: 700px;
+  max-width: 70%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+#bandaid-modal-content {
+  position: relative;
+  left: -50%;
+  border: 1px solid lightgray;
+  background-color: white;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+#bandaid-modal-content .check-all-li:first-child {
+  border-bottom: 1px solid lightgray;
+}
+
+#bandaid-modal-content .check-all-li:last-child {
+  border-top: 1px solid lightgray;
+}
+
+#bandaid-modal-head {
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+  height: 35px;
+  display: block;
+  text-align: center;
+}
+
+#bandaid-modal-foot {
+  border-top: 1px solid lightgray;
+  width: 100%;
+  text-align: right;
+}
+
+#bandaid-modal-foot a {
+  margin: 5px;
+}
+
+#bandaid-modal-foot .actbutton {
+  float: left;
+  margin-top: 4px;
+  margin-left: 5px;
+}
+
+#bandaid-modal-body {
+  padding: 10px;
+}
+
+#bandaid-overlay {
+  z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.post-info-table {
+  display: table;
+  width: 100%;
+  border-spacing: 0;
+  border: none;
+  background-color: #f7f7f7;
+  z-index: 999;
+}
+
+.post-info-table tr {
+  border: none;
+}
+
+.post-info-table.upper {
+  display: none;
+  border-top: 1px solid darkgrey;
+  margin-top: 5px;
+  padding-top: 3px;
+}
+
+.post-info-table td {
+  font-size: 12px;
+  border: none;
+}
+
+#edit-slug-box {
+  display: inline !important;
+  padding: 0 !important;
+}
+
+#titlediv div.inside {
+  margin-top: 5px !important;
+}
+
+.bandaid-copy-link {
+  margin-left: 4px !important;
+}
+
+.parsely-link-block.channel{
+  line-height: 1.6;
+  font-size: .875rem;
+  position: relative;
+  top: 8px;
+}
+
+#link-container {
+  position: relative;
+  top: 30px;
+  left: 5px;
+  color: white;
+}
+
+#link-container a:link {
+  color: white;
+}
+
+#link-container a:visited {
+  color: white;
+}
+
+#link-container a:active {
+  color: white;
+}
+
+#link-container a:hover {
+  color: white;
+  text-decoration: underline;
+}
+

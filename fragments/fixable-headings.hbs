@@ -1,0 +1,22 @@
+{{#if somethingToOptimize}}
+  <ul id="fixable-headings-list">
+    {{#if multiple}}
+      <li>
+       <label>
+         <input type="checkbox" id="check-all-headings" checked>Check all
+        </label>
+      </li>
+    {{/if}}
+    {{#each fixable}}
+      <li class="bandaid-cappable-heading">
+        <label>
+          <input type="checkbox" class="fixable" checked>
+          Fix: <span class="actual">{{this}}</span> =&gt;
+               <span class="suggestion">{{capitalize this}}</span>
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>Nothing to optimize, all subheadings look good!</p>
+{{/if}}

@@ -1,0 +1,22 @@
+<div id="bandaid-overlay"></div>
+
+<div id="bandaid-modal">
+  <div id="bandaid-modal-content">
+    <header id="bandaid-modal-head">
+      <h3>{{modalHeading}}</h3>
+    </header>
+    <div id="bandaid-modal-body">
+      {{{bodyHTML}}}
+    </div>
+    <footer id="bandaid-modal-foot">
+      {{#if hasButton}}
+        <div class="actbutton">
+          <button class="wp-core-ui button button-primary">
+            {{buttonText}}
+          </button>
+        </div>
+      {{/if}}
+      <a class="wp-core-ui button" id="bandaid-modal-close">× Close</a>
+    </footer>
+  </div>
+</div>

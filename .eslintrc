@@ -1,0 +1,35 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": false
+  },
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "globals": {
+    "$": true
+  },
+  "rules": {
+    "strict": [
+      0,
+      "function"
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.js",
+          "**/*.spec.js"
+        ]
+      }
+    ]
+  }
+}

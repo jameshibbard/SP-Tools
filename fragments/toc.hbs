@@ -1,0 +1,25 @@
+<style type="text/css">
+  li.toc-h3 {
+    margin-left: 20px;
+  }
+  li.toc-h4 {
+    margin-left: 40px;
+  }
+</style>
+<div class="ArticleBox u-inline">
+  <h3 class="ArticleBox_header t-bg">
+    <span class="ArticleBox_icon fa fa-list-ul"></span> Table of Contents
+  </h3>
+  <div class="m-border ArticleBox_content">
+    <ul class="ArticleBox_list">
+    {{#each headings}}
+      <li class="toc-{{this.level}}">
+        <a href="#{{this.slug}}">{{this.title}}</a>
+      </li>
+    {{/each}}
+      <li class="toc-h2">
+        <a href="#comments">Comments</a>
+      </li>
+    </ul>
+  </div>
+</div>
