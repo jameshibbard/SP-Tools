@@ -1,23 +1,21 @@
-"use strict";
+'use strict';
 
-var PlainTextView = (function() {
-  var $returnToSnapshotButton = $(".button-cancel");
-  var $textArea = $("textarea#textContent");
+const PlainTextView = (function PlainTextView() {
+  const $returnToSnapshotButton = $('.button-cancel');
+  const $textArea = $('textarea#textContent');
 
-  function prettify(){
-    var text = $textArea.val();
+  function prettify() {
+    const text = $textArea.val();
+    const rx = /^@.*$/m;
+    const separator = rx.exec(text)[0];
+    let intro = text.split(separator)[0] + separator;
+    let body = text.split(separator)[1];
+    let footer = `SitePoint | SitePoint Premium${body.split('SitePoint | SitePoint Premium')[1]}`;
 
-    var seperator = "[https://twitter.com/SitePointJS]";
-    var intro = text.split(seperator)[0] + seperator;
-    var body = text.split(seperator)[1]
-    var footer = "SitePoint | SitePoint Premium" + body.split("SitePoint | SitePoint Premium")[1];
-
-    intro = intro.replace(/View online \[webversion\]\s+/, 'View Online [webversion]\n\n');
-    intro = intro.replace(/\n(.*?)JavaScript Channel(.*?)/m, '$1JavaScript Channel$2\n')
-    intro = intro.replace(/\n\n@SitePointJS \[https:\/\/twitter.com\/SitePointJS\]/m, '@SitePointJS [https://twitter.com/SitePointJS]\n')
+    intro = intro.replace(/View online \[webversion]\s+/, 'View Online [webversion]\n\n');
 
     body = body.replace(footer, '');
-    body = body.replace(/\]$\n(.*)/mg, "]$1")
+    body = body.replace(/]$\n(.*)/mg, ']$1');
 
     footer = `
 SitePoint | SitePoint Premium
@@ -33,32 +31,32 @@ Like [fblike]
 Tweet [tweet]
 Share [https://www.linkedin.com/shareArticle?url=[webversion]
 Forward [forwardtoafriend]
-    `
+    `;
 
     $textArea.val(intro + body + footer);
   }
 
-  function addMakePrettyButton(){
-    var $makePrettyButton = $("<button />", {
-      text: "Make Pretty",
-      class: "button primary huge",
-      style: "margin-left: 20px;",
-      click: function(e){
+  function addMakePrettyButton() {
+    const $makePrettyButton = $('<button />', {
+      text: 'Make Pretty',
+      class: 'button primary huge',
+      style: 'margin-left: 20px;',
+      click(e) {
         e.preventDefault();
         prettify();
-      }
+      },
     });
 
     $returnToSnapshotButton.append($makePrettyButton);
   }
 
-  function init(){
+  function init() {
     addMakePrettyButton();
   }
 
   return {
-    init: init
+    init,
   };
-})();
+}());
 
 PlainTextView.init();

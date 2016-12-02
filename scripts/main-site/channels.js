@@ -8,7 +8,7 @@ const Channel = (function() {
     "$emailSubscribeBanner2": $("banner-subscribe").parent(),
     "$premiumCourses": $("a[href='/premium/courses/']").parent().parent(),
     "$premiumBooks": $("a[href='/premium/books/']").parent().parent(),
-    "$latestHeading": $("h1:contains('Latest')").parent(),
+    "$latestHeading": $("h2:contains('Latest')").parent(),
     "$woorankBanner": $("#woorank-demand-gen"),
     "$randomAd": $(".maestro-content-type-ad").parent()
   };
