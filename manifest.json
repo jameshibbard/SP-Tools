@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "SP Tools",
-  "description": "This extension is for internal use at SitePoint.",
-  "version": "0.14.0",
+  "description": "A Chrome extension to help with various SitePoint editing tasks",
+  "version": "0.14.2",
 
   "background": {
     "scripts": [

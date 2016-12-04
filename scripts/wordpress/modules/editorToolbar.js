@@ -76,8 +76,12 @@ const EditorToolbar = (function EditorToolbar() {
       preserve_newlines: false,
       wrap_line_length: 0,
     };
+
     return function beautify(html) {
-      return html_beautify(html, options);
+      let beautifiedHTML = html_beautify(html, options);
+      beautifiedHTML = beautifiedHTML.replace('<p>[author_more]</p>', '[author_more]');
+
+      return beautifiedHTML;
     };
   }
 
@@ -103,6 +107,6 @@ const EditorToolbar = (function EditorToolbar() {
       addToCButton();
       addMDButton();
       addBeautyButton();
-    }
+    },
   };
 }());
