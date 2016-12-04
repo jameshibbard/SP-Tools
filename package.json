@@ -1,14 +1,15 @@
 {
   "name": "SP-Tools",
   "version": "0.13.23",
-  "description": "A Chrome extension to help with various editing tasks",
+  "description": "A Chrome extension to help with various SitePoint editing tasks.
+",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
     "test": "mocha tests/unit/tests && exit 0",
-    "nightwatch": " node_modules/.bin/nightwatch --config tests/integration/nightwatch.json",
+    "nightwatch": "node_modules/.bin/nightwatch --config tests/integration/nightwatch.json",
     "lint": "eslint $FILE; exit 0",
     "get-selenium": "wget --directory-prefix=tests/integration/bin http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar",
     "get-chrome-driver": "wget --directory-prefix=tests/integration/bin https://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip",

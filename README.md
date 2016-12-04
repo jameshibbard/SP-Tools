@@ -1,33 +1,35 @@
 # SP Tools
 
-A Chrome extension to help with various editing tasks
+A Chrome extension to help with various SitePoint editing tasks.
+
+For documentation of the available functionality, consult [the wiki](https://github.com/sitepoint-editors/SP-Tools/wiki).
 
 Install via [this link](https://chrome.google.com/webstore/detail/sp-tools/giiilbcilmcnknhepiaakljffflmopkn).
 
-## WordPress
+## Tests
 
-- automatically checks for presence of [author_more] tag in the text, and makes the field glow red if this tag is absent
-- checks for relative links in text, warns about them
-- provides Capitalize option under the title, which instantly titlecapitalizes it
-- provides Copy Tags button under Tags, so you get a comma separated list of tags copied to the clipboard, in case you need to reuse them on another post
-- the series input field which typically allows you to add a new series right from the Add / Edit post page now also serves as an insta-filter. Just type into it and unwanted series automatically hide
-- removed Total Cache header popup
-- headline analyzer included in the UI
-- the schedule fields for date and time have been replaced with a datepicker
-- the subheadings in the text can now also be programatically capitalized - new button added under the title field
-- removed the "Publish to Discourse" checkbox
-- removed the "Is this headline OK" button (not needed since we've got the analyzer built in now)
-- makes the syntax highlighter default to the selected primary category, if there's a match
-- buttons "Copy Link" and "Rebuild Link" were added next to the permalink part, under the title field. The Rebuild one refreshes the slug if you changed the title, and the Copy one copies the full link (http://sitepoint.com prefix and all) to the clipboard.
-- added context menu option which lets users copy the title / description of the current page, or if right clicking on a link, the title / description of the target page. Useful when writing newsletter.
-- a button for converting markdown to HTML is added to the editor toolbar, so MD can be pasted directly into the editor textarea and converted there. Also results in much cleaner output than usual.
+- Clone repo
+- Ensure that Node and npm are installed on your machine ([guide](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/)).
+- Run `npm install` to install project dependencies
 
-More coming soon ...
+### Integration
+The integration tests use [Nightwatch.js](https://github.com/nightwatchjs/nightwatch). Nightwatch uses the Selenium standalone server (v 2.x) and the Chrome webdriver (latest), which it expects to be present in `tests/integration/bin`. These can be downloaded manually from the respective websites ([Selemnium](http://selenium-release.storage.googleapis.com/index.html) | [Chrome](https://sites.google.com/a/chromium.org/chromedriver/downloads)), or automatically on 64-bit Linux by running `npm run get-deps`. The Selenium standalone server is written in Java, so that should also be installed. For more info on getting up and running with Nightwatch, see: [JavaScript Functional Testing with Nightwatch.js](https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/).
 
-## Main Site
+The integration tests are also expecting a `creds.js` file to be present one level above the repo (in the repo's containing directory). This file should export an object with a `username` and `password` property, which will be used to log into the WP backend.
 
-Coming soon ...
+```javascript
+module.exports = {
+  username: 'user',
+  password: 'pass'
+};
+```
 
-## Campaign Monitor
+To run all the integration tests: `npm run nightwatch`.
+To run an individual test append the test path to the above command: `npm run nightwatch tests/integration/tests/beautifier.js`
 
-Coming soon ...
+### Unit
+
+A WIP. The unit tests use the [Mocha](https://mochajs.org/) framework.
+
+To run, install the project dependencies as above, then run `npm run test`.
+
