@@ -85,11 +85,11 @@ const Article = (function Article() {
   }
 
   function buildApiUrl(postUrl, days) {
-    const apiUrl = `https://api.parsely.com/v2/analytics/post/detail?url=
-                    ${encodeURIComponent(postUrl)}
-                    &apikey=${API_KEY}
-                    &secret=${SECRET_TOKEN}
-                    &days=${days}`;
+    const apiUrl = 'https://api.parsely.com/v2/analytics/post/detail?url=' +
+                    encodeURIComponent(postUrl) +
+                    '&apikey=' + API_KEY +
+                    '&secret=' + SECRET_TOKEN +
+                    '&days=' + days;
     return apiUrl;
   }
 
