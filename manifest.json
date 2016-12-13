@@ -59,6 +59,7 @@
         "lib/beautify-html.min.js",
         "scripts/utils/capitalize.js",
         "scripts/utils/modal.js",
+        "scripts/wordpress/modules/validators.js",
         "scripts/wordpress/modules/editorToolbar.js",
         "scripts/wordpress/modules/titleArea.js",
         "scripts/wordpress/modules/editorPane.js",

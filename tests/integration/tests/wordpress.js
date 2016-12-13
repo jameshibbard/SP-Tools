@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // java -jar selenium-server-standalone-2.53.1.jar
 // nightwatch --test tests/wordpress.js
 var credentials = require('../../../../creds.js');
@@ -7,6 +9,7 @@ var credentials = require('../../../../creds.js');
 // Go to New Post Page
 // Assert that W3-Total Cache banner is not present
 // Attempt to save a draft with no title
+// Assert empty document displays as "All good"
 // Test MD > HTML conversion
 // Test Capitalize and check button
 // Test Capitalize subheadings button
@@ -43,6 +46,9 @@ module.exports = {
       .dismiss_alert()
 
       .waitForElementPresent("#bandaid-md", 5000)
+
+      .assert.containsText(".proofreader-main-row > td", "All good")
+
       .setValue("#content", "## level 2 heading\n### level 3 heading")
       .click("#bandaid-md")
       .assert.valueContains("#content", '<h2 id="level2heading">level 2 heading</h2>')

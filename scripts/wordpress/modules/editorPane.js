@@ -1,64 +1,68 @@
-"use strict";
+/* exported EditorPane */
+/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator */
 
-var EditorPane = (function() {
+'use strict';
 
-  var $editorToolbar = $("#ed_toolbar");
-  var $editorField = $("#content");
-  var $postStatusInfoBar = $("#post-status-info tbody");
-  var $fullHeightEditorToggle = $('#editor-expand-toggle');
-  var $messageContainer; // $(".proofreader-main-row")
-  var $messageArea; // $(".proofreader-main-row td")
-  var $messageAreaTop; // $(".post-info-table")
+const EditorPane = (function EditorPane() {
+  const page = pageFactory(document);
+  const $editorToolbar = $('#ed_toolbar');
+  const $editorField = $('#content');
+  const $postStatusInfoBar = $('#post-status-info tbody');
+  const $fullHeightEditorToggle = $('#editor-expand-toggle');
+  let $messageContainer; // $(".proofreader-main-row")
+  let $messageArea; // $(".proofreader-main-row td")
+  let $messageAreaTop; // $(".post-info-table")
 
-  function updateMessages(messages){
-    if (messages.length){
+  function updateMessages(messages = []) {
+    if (messages.length) {
       $editorField.addClass('error');
-      $messageContainer.addClass("error");
-      $messageArea.html(messages.join("<br>"));
+      $messageContainer.addClass('error');
+      $messageArea.html(messages.join('<br>'));
     } else {
       $editorField.removeClass('error');
-      $messageContainer.removeClass("error");
-      $messageArea.text("All good");
+      $messageContainer.removeClass('error');
+      $messageArea.text('All good');
+    }
+
+    // Stop dynamically generated messages overlapping editor field
+    if ($messageAreaTop.is(':visible')) {
+      $editorField.css('margin-top', $editorToolbar.outerHeight(true));
     }
   }
 
-  function startChecker(){
-    setInterval(function(){
-      var errorMessages = [];
-      var content = $editorField.val();
+  function runChecks(validators) {
+    if (page.editorContents === '') return updateMessages();
 
-      if (content !== "" &&
-          content.indexOf("[author_more]") === -1) {
-        errorMessages.push("Missing [author_more]!");
+    const errorMessages = [];
+
+    validators.forEach((v) => {
+      const result = v(page);
+      if (result.isValid === false) {
+        errorMessages.push(result.message);
       }
+    });
 
-      var rx = /<a\s+(?:[^>]*?\s+)?href=(['"])([^"]*)\1/ig;
-      var matches = getAllMatches(rx, content);
-      $.each(matches, function (i, el) {
-        if (!linkOk(el[2])) {
-          errorMessages.push("Relative link found: " + el[2]);
-        }
-      });
-
-      updateMessages(errorMessages);
-
-      // Stop dynamically generated messages overlapping editor field
-      if ($messageAreaTop.is(":visible")){
-        $editorField.css(
-          "margin-top", $editorToolbar.outerHeight(true)
-        );
-      }
-    }, 2000);
+    return updateMessages(errorMessages);
   }
 
-  function addEventHandlers(){
+  function startChecker() {
+    const validators = [
+      authorMoreValidator,
+      relativeLinkValidator,
+    ];
+
+    runChecks(validators);
+    setInterval(() => runChecks(validators), 2000);
+  }
+
+  function addEventHandlers() {
     // If the "Enable full-height editor and distraction-free functionality"
     // option is selected in the Screen Options menu (top right hand corner)
     // then the status bar should be shown above and below the editor area.
     // If it is deselected, then it should only be shown below it.
     // Screen Options preferences are saved locally in a cookie
-    $fullHeightEditorToggle.on("change", function(){
-      if ($(this).is(":checked")) {
+    $fullHeightEditorToggle.on('change', function toggleEditorHeight() {
+      if ($(this).is(':checked')) {
         $messageAreaTop.show();
       } else {
         $messageAreaTop.hide();
@@ -68,21 +72,24 @@ var EditorPane = (function() {
     $fullHeightEditorToggle.change();
   }
 
-  function init(){
-    getTemplate("info-row.html")
-    .then(function(html){
-      $editorToolbar.append(html);
-      $postStatusInfoBar.prepend($(".proofreader-main-row").clone());
-      $messageContainer = $(".proofreader-main-row");
-      $messageAreaTop = $(".post-info-table");
-      $messageArea = $(".bandaid-message");
-
-      addEventHandlers();
-      startChecker();
-    });
+  function createStatusAreas() {
+    return getTemplate('info-row.html')
+      .then((html) => {
+        $editorToolbar.append(html);
+        $postStatusInfoBar.prepend($('.proofreader-main-row').clone());
+        $messageContainer = $('.proofreader-main-row');
+        $messageAreaTop = $('.post-info-table');
+        $messageArea = $('.bandaid-message');
+      });
   }
 
   return {
-    init: init
+    init() {
+      createStatusAreas()
+        .then(() => {
+          addEventHandlers();
+          startChecker();
+        });
+    },
   };
-})();
+}());

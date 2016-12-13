@@ -135,3 +135,18 @@ describe('getMDLink', () => {
     assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com)');
   });
 });
+
+/* global pageFactory */
+describe('page object', () => {
+  const fakeDOM = document.createElement('div');
+  fakeDOM.innerHTML = '<textarea id="content">JavaScript FTW!</textarea>';
+  const page = pageFactory(fakeDOM);
+
+  it('should have a editorContents property', () => {
+    assert.equal(Object.prototype.hasOwnProperty.call(page, 'editorContents'), true);
+  });
+
+  it('should return a string', () => {
+    assert.equal(typeof page.editorContents, 'string');
+  });
+});

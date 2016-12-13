@@ -91,6 +91,17 @@ function getAllHeadings(html) {
   }));
 }
 
+function pageFactory(dom) {
+  // Set up cached elements
+  const editorTextArea = dom.querySelector('textarea#content');
+
+  return {
+    get editorContents() {
+      return editorTextArea.value;
+    },
+  };
+}
+
 function getMDLink(obj){
   const title = (obj.title === '') ? '' : ` "${obj.title}"`;
   return `[${obj.text}](${obj.href}${title})`;
