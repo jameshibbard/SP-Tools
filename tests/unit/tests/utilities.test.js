@@ -139,14 +139,43 @@ describe('getMDLink', () => {
 /* global pageFactory */
 describe('page object', () => {
   const fakeDOM = document.createElement('div');
-  fakeDOM.innerHTML = '<textarea id="content">JavaScript FTW!</textarea>';
+  fakeDOM.innerHTML = `
+    <input type="checkbox" id="editor-expand-toggle"></input>
+    <div id="ed_toolbar"></div>
+    <table class="post-info-table"></table>
+    <textarea id="content">JavaScript FTW!</textarea>
+    <table class="post-info-table"></table>
+    <table id="post-status-info"></table>
+  `;
   const page = pageFactory(fakeDOM);
 
-  it('should have a editorContents property', () => {
-    assert.equal(Object.prototype.hasOwnProperty.call(page, 'editorContents'), true);
+  describe('editor property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.editor instanceof window.HTMLElement, true);
+    });
   });
 
-  it('should return a string', () => {
-    assert.equal(typeof page.editorContents, 'string');
+  describe('editorToolbar property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.editorToolbar instanceof window.HTMLElement, true);
+    });
+  });
+
+  describe('fullHeightEditorToggle property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.fullHeightEditorToggle instanceof window.HTMLElement, true);
+    });
+  });
+
+  describe('postMessageTable property', () => {
+    it('should return a NodeList', () => {
+      assert.equal(page.postMessageTable instanceof window.NodeList, true);
+    });
+  });
+
+  describe('postStatusTable property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.postStatusTable instanceof window.HTMLElement, true);
+    });
   });
 });

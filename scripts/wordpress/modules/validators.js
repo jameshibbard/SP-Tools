@@ -1,8 +1,10 @@
-/* exported authorMoreValidator, relativeLinkValidator */
+/* exported authorMoreValidator, relativeLinkValidator, h1Validator */
 /* global getAllMatches, linkOk */
 
 function authorMoreValidator(page) {
-  if (page.editorContents.indexOf('[author_more]') === -1) {
+  const content = page.editor.value;
+
+  if (content.indexOf('[author_more]') === -1) {
     return {
       isValid: false,
       message: 'Missing [author_more] shortcode',
@@ -14,7 +16,7 @@ function authorMoreValidator(page) {
 
 function relativeLinkValidator(page) {
   const rx = /<a\s+(?:[^>]*?\s+)?href=(['"])([^"]*)\1/ig;
-  const matches = getAllMatches(rx, page.editorContents);
+  const matches = getAllMatches(rx, page.editor.value);
 
   const relativeSlugs = [];
   matches.forEach((el) => {
@@ -30,5 +32,19 @@ function relativeLinkValidator(page) {
   return {
     isValid: false,
     message: `Relative link found: ${relativeSlugs.join(', ')}`,
+  };
+}
+
+function h1Validator(page) {
+  const rx = /<h1.*?>.*?<\/h1>/ig;
+  const matches = getAllMatches(rx, page.editor.value);
+
+  if (matches.length === 0) {
+    return { isValid: true };
+  }
+
+  return {
+    isValid: false,
+    message: 'H1 tag found!',
   };
 }

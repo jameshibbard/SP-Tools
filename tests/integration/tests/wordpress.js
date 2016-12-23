@@ -17,6 +17,7 @@ var credentials = require('../../../../creds.js');
 // Test Rebuild Link and Copy Link buttons
 // Test [author_more] notification
 // Test that relative links are flagged
+// Test that h1 tags are flagged
 // Test that datepicker works
 // Attempt to save a draft with a purely numeric title
 // Test that Copy tags button works
@@ -90,6 +91,10 @@ module.exports = {
       .setValue("#content", '\n\n<a href="www.sitepoint.com">Link</a>')
       .pause(2000)
       .assert.containsText(".proofreader-main-row > td", "Relative link found: www.sitepoint.com")
+
+      .setValue("#content", '\n\n<h1>What a nice heading!</h1>')
+      .pause(2000)
+      .assert.containsText(".proofreader-main-row > td", "H1 tag found!")
 
       .pause(500)
       .assert.containsText("#timestamp", "Publish immediately")

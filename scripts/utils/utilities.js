@@ -87,18 +87,24 @@ function getAllHeadings(html) {
   return elems.map(el => ({
     level: el.tagName.toLowerCase(),
     title: el.textContent,
-    slug: el.id
+    slug: el.id,
   }));
 }
 
-function pageFactory(dom) {
+function pageFactory(dom = document) {
   // Set up cached elements
-  const editorTextArea = dom.querySelector('textarea#content');
+  const editor = dom.querySelector('textarea#content');
+  const editorToolbar = dom.querySelector('div#ed_toolbar');
+  const fullHeightEditorToggle = dom.querySelector('input#editor-expand-toggle');
+  const postMessageTable = dom.querySelectorAll('table.post-info-table');
+  const postStatusTable = dom.querySelector('table#post-status-info');
 
   return {
-    get editorContents() {
-      return editorTextArea.value;
-    },
+    editor,
+    editorToolbar,
+    fullHeightEditorToggle,
+    postMessageTable,
+    postStatusTable,
   };
 }
 

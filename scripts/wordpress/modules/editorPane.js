@@ -1,37 +1,35 @@
 /* exported EditorPane */
-/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator */
+/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator, h1Validator */
 
 'use strict';
 
 const EditorPane = (function EditorPane() {
-  const page = pageFactory(document);
-  const $editorToolbar = $('#ed_toolbar');
-  const $editorField = $('#content');
-  const $postStatusInfoBar = $('#post-status-info tbody');
-  const $fullHeightEditorToggle = $('#editor-expand-toggle');
-  let $messageContainer; // $(".proofreader-main-row")
-  let $messageArea; // $(".proofreader-main-row td")
-  let $messageAreaTop; // $(".post-info-table")
+  const page = pageFactory();
 
+  /* eslint no-param-reassign: ["error", { "props": false }] */
   function updateMessages(messages = []) {
     if (messages.length) {
-      $editorField.addClass('error');
-      $messageContainer.addClass('error');
-      $messageArea.html(messages.join('<br>'));
+      page.editor.classList.add('error');
+      page.postMessageTable.forEach((el) => {
+        el.querySelector('td').classList.add('error');
+        el.querySelector('td').innerHTML = messages.join('<br>');
+      });
     } else {
-      $editorField.removeClass('error');
-      $messageContainer.removeClass('error');
-      $messageArea.text('All good');
+      page.editor.classList.remove('error');
+      page.postMessageTable.forEach((el) => {
+        el.querySelector('td').classList.remove('error');
+        el.querySelector('td').innerHTML = 'All good';
+      });
     }
 
-    // Stop dynamically generated messages overlapping editor field
-    if ($messageAreaTop.is(':visible')) {
-      $editorField.css('margin-top', $editorToolbar.outerHeight(true));
-    }
+    Object.assign(document.querySelector('.post-info-table').style, {
+      position: 'relative',
+      top: `${page.editorToolbar.offsetHeight}px`,
+    });
   }
 
   function runChecks(validators) {
-    if (page.editorContents === '') return updateMessages();
+    if (page.editor.value === '') return updateMessages();
 
     const errorMessages = [];
 
@@ -49,10 +47,11 @@ const EditorPane = (function EditorPane() {
     const validators = [
       authorMoreValidator,
       relativeLinkValidator,
+      h1Validator,
     ];
 
     runChecks(validators);
-    setInterval(() => runChecks(validators), 2000);
+    setInterval(() => runChecks(validators), 1000);
   }
 
   function addEventHandlers() {
@@ -61,25 +60,22 @@ const EditorPane = (function EditorPane() {
     // then the status bar should be shown above and below the editor area.
     // If it is deselected, then it should only be shown below it.
     // Screen Options preferences are saved locally in a cookie
-    $fullHeightEditorToggle.on('change', function toggleEditorHeight() {
-      if ($(this).is(':checked')) {
-        $messageAreaTop.show();
-      } else {
-        $messageAreaTop.hide();
-      }
+    page.fullHeightEditorToggle.addEventListener('change', function toggleEditorHeight() {
+      page.postMessageTable[0].style.display = (this.checked) ? '' : 'none';
     });
 
-    $fullHeightEditorToggle.change();
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+    page.fullHeightEditorToggle.dispatchEvent(event);
   }
 
   function createStatusAreas() {
     return getTemplate('info-row.html')
       .then((html) => {
-        $editorToolbar.append(html);
-        $postStatusInfoBar.prepend($('.proofreader-main-row').clone());
-        $messageContainer = $('.proofreader-main-row');
-        $messageAreaTop = $('.post-info-table');
-        $messageArea = $('.bandaid-message');
+        page.editorToolbar.insertAdjacentHTML('afterend', html);
+        page.postStatusTable.insertAdjacentHTML('beforebegin', html);
+
+        page.postMessageTable = document.querySelectorAll('table.post-info-table');
       });
   }
 
