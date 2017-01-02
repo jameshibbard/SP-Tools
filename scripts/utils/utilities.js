@@ -90,3 +90,8 @@ function getAllHeadings(html) {
     slug: el.id
   }));
 }
+
+function getMDLink(obj){
+  const title = (obj.title === '') ? '' : ` "${obj.title}"`;
+  return `[${obj.text}](${obj.href}${title})`;
+}

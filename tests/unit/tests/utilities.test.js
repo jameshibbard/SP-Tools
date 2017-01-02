@@ -94,3 +94,44 @@ describe('getAllHeadings', () => {
     assert.equal(headings.length, 0);
   });
 });
+
+/* global getMDLink beforeEach */
+describe('getMDLink', () => {
+  let linkObj;
+
+  beforeEach(() => {
+    linkObj = {
+      text: 'SitePoint',
+      href: 'https://www.sitepoint.com',
+      title: '',
+    };
+  });
+
+  it('should return a string', () => {
+    const MDLink = getMDLink(linkObj);
+    assert.equal(typeof MDLink === 'string', true);
+  });
+
+  it('should generate a MarkDown link from object', () => {
+    const MDLink = getMDLink(linkObj);
+    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com)');
+  });
+
+  it('should handle a title attribute', () => {
+    linkObj.title = 'Web Learning Resource';
+    const MDLink = getMDLink(linkObj);
+    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com "Web Learning Resource")');
+  });
+
+  it('should handle a title attribute', () => {
+    linkObj.text = '<code>SitePoint</code>';
+    const MDLink = getMDLink(linkObj);
+    assert.equal(MDLink, '[<code>SitePoint</code>](https://www.sitepoint.com)');
+  });
+
+  it('should ignore other attributes', () => {
+    linkObj.style = 'color: red;';
+    const MDLink = getMDLink(linkObj);
+    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com)');
+  });
+});
