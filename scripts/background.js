@@ -1,79 +1,94 @@
+/* global chrome, copyTextToClipboard,getMDLink */
+
+'use strict';
+
 // var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
+//   "sample_setting": "This is how you use Store.js to remember values"
 // });
 
 // Use runtime.onMessage instead of extension.onMessage
 // https://developer.chrome.com/extensions/runtime#event-onMessage
 //
 // chrome.extension.onMessage.addListener(
-//     function (request, sender, sendResponse) {
-//         chrome.pageAction.show(sender.tab.id);
-//         sendResponse(settings.toObject());
-//     }
+//   function (request, sender, sendResponse) {
+//     chrome.pageAction.show(sender.tab.id);
+//     sendResponse(settings.toObject());
+//   }
 // );
 
 chrome.contextMenus.create({
-  'title': "Copy description",
-  'contexts': ['page'],
-  'onclick': function (info, tab) {
-    chrome.tabs.sendMessage(tab.id, {text: "getDesc"}, function (desc) {
+  title: 'Copy description',
+  contexts: ['page'],
+  onclick: (info, tab) => {
+    chrome.tabs.sendMessage(tab.id, { text: 'getDesc' }, (desc) => {
       copyTextToClipboard(desc);
     });
   },
-  'documentUrlPatterns': ["*://*.sitepoint.com/*"]
+  documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });
 
 chrome.contextMenus.create({
-  'title': "Copy title",
-  'contexts': ['page'],
-  'onclick': function (info, tab) {
-    chrome.tabs.sendMessage(tab.id, {text: "getTitle"}, function (title) {
+  title: 'Copy title',
+  contexts: ['page'],
+  onclick: (info, tab) => {
+    chrome.tabs.sendMessage(tab.id, { text: 'getTitle' }, (title) => {
       copyTextToClipboard(title);
     });
   },
-  'documentUrlPatterns': ["*://*.sitepoint.com/*"]
+  documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });
 
 chrome.contextMenus.create({
-  'title': "Copy target description",
-  'contexts': ['link'],
-  'onclick': function (info, tab) {
-    $.get(info.linkUrl, function(data){
-      var desc = $(data).filter("meta[name='description']").attr('content');
+  title: 'Copy target description',
+  contexts: ['link'],
+  onclick: (info) => {
+    $.get(info.linkUrl, (data) => {
+      const desc = $(data).filter("meta[name='description']").attr('content');
       copyTextToClipboard(desc);
     });
   },
-  'documentUrlPatterns': ["*://*.sitepoint.com/*"]
+  documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });
 
 chrome.contextMenus.create({
-  'title': "Copy target title",
-  'contexts': ['link'],
-  'onclick': function (info, tab) {
-    $.get(info.linkUrl, function(data){
-      var title = $(data).filter("title").text();
+  title: 'Copy target title',
+  contexts: ['link'],
+  onclick: (info) => {
+    $.get(info.linkUrl, (data) => {
+      const title = $(data).filter('title').text();
       copyTextToClipboard(title);
     });
   },
-  'documentUrlPatterns': ["*://*.sitepoint.com/*"]
+  documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });
 
 chrome.contextMenus.create({
-  'title': "Get newsletter link",
-  'contexts': ['link'],
-  'onclick': function (info, tab) {
-    $.get(info.linkUrl, function(data){
-      var title = $(data).filter("title").text();
-      var desc = $(data).filter("meta[name='description']").attr('content');
+  title: 'Get newsletter link',
+  contexts: ['link'],
+  onclick: (info) => {
+    $.get(info.linkUrl, (data) => {
+      const title = $(data).filter('title').text();
+      const desc = $(data).filter("meta[name='description']").attr('content');
 
-      var newsletterLink = (`<p>
+      const newsletterLink = (`<p>
           <a href="${info.linkUrl}">${title}</a><br />
           ${desc}
         </p>
-      `).replace(/^        /gm, '');
+      `).replace(/^ {6,8}/gm, '');
 
       copyTextToClipboard(newsletterLink);
     });
   },
-  'documentUrlPatterns': ["*://*.sitepoint.com/*"]
+  documentUrlPatterns: ['*://*.sitepoint.com/*'],
+});
+
+chrome.contextMenus.create({
+  title: 'Get MD link',
+  contexts: ['link'],
+  onclick: (info, tab) => {
+    chrome.tabs.sendMessage(tab.id, 'getLinkProperties', (props) => {
+      const MDLink = getMDLink(props);
+      copyTextToClipboard(MDLink);
+    });
+  },
 });
