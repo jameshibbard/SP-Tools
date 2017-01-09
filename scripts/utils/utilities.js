@@ -93,11 +93,31 @@ function getAllHeadings(html) {
 
 function pageFactory(dom = document) {
   // Set up cached elements
-  const editor = dom.querySelector('textarea#content');
-  const editorToolbar = dom.querySelector('div#ed_toolbar');
-  const fullHeightEditorToggle = dom.querySelector('input#editor-expand-toggle');
-  const postMessageTable = dom.querySelectorAll('table.post-info-table');
-  const postStatusTable = dom.querySelector('table#post-status-info');
+  const editor = dom.querySelector('#content');
+  const editorToolbar = dom.querySelector('#ed_toolbar');
+  const fullHeightEditorToggle = dom.querySelector('#editor-expand-toggle');
+  const postMessageTable = dom.querySelectorAll('.post-info-table');
+  const postStatusTable = dom.querySelector('#post-status-info');
+  const publishingActions = dom.querySelector('#misc-publishing-actions');
+
+  // Private
+  const publishBtn = dom.querySelector('#publish');
+  let isMollyguardEnabled = true;
+
+  function disablePublishBtn() {
+    this.mollyGuard.style.visibility = 'visible';
+    if (isMollyguardEnabled) publishBtn.disabled = true;
+  }
+
+  function enablePublishBtn(overrideChecks = false) {
+    if (overrideChecks) {
+      isMollyguardEnabled = false;
+      this.mollyGuard.querySelector('a').outerHTML = '<strong>Mollyguard overridden</strong>';
+    } else {
+      this.mollyGuard.style.visibility = 'hidden';
+    }
+    publishBtn.disabled = false;
+  }
 
   return {
     editor,
@@ -105,9 +125,12 @@ function pageFactory(dom = document) {
     fullHeightEditorToggle,
     postMessageTable,
     postStatusTable,
+    publishingActions,
+    mollyGuard: null, // <div> element inserted dynamically in editorPane.js
+    disablePublishBtn,
+    enablePublishBtn,
   };
 }
-
 function getMDLink(obj){
   const title = (obj.title === '') ? '' : ` "${obj.title}"`;
   return `[${obj.text}](${obj.href}${title})`;

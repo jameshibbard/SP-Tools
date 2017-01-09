@@ -3,6 +3,10 @@
   display: none !important;
 }
 
+#mollyguard{
+  visibility: hidden;
+}
+
 .wp-editor-area.error {
   border: 2px solid red !important;
 }

@@ -138,16 +138,27 @@ describe('getMDLink', () => {
 
 /* global pageFactory */
 describe('page object', () => {
-  const fakeDOM = document.createElement('div');
-  fakeDOM.innerHTML = `
-    <input type="checkbox" id="editor-expand-toggle"></input>
-    <div id="ed_toolbar"></div>
-    <table class="post-info-table"></table>
-    <textarea id="content">JavaScript FTW!</textarea>
-    <table class="post-info-table"></table>
-    <table id="post-status-info"></table>
-  `;
-  const page = pageFactory(fakeDOM);
+  let page;
+  let publishBtn;
+
+  beforeEach(() => {
+    const fakeDOM = document.createElement('div');
+    fakeDOM.innerHTML = `
+      <input type="submit" id="publish">
+      <input type="checkbox" id="editor-expand-toggle"></input>
+      <div id="ed_toolbar"></div>
+      <div id="misc-publishing-actions">
+        <div id="mollyguard"><a href="#"></a></div>
+      </div>
+      <table class="post-info-table"></table>
+      <textarea id="content">JavaScript FTW!</textarea>
+      <table class="post-info-table"></table>
+      <table id="post-status-info"></table>
+    `;
+    page = pageFactory(fakeDOM);
+    page.mollyGuard = fakeDOM.querySelector('#mollyguard');
+    publishBtn = fakeDOM.querySelector('#publish');
+  });
 
   describe('editor property', () => {
     it('should return a DOM element', () => {
@@ -176,6 +187,53 @@ describe('page object', () => {
   describe('postStatusTable property', () => {
     it('should return a DOM element', () => {
       assert.equal(page.postStatusTable instanceof window.HTMLElement, true);
+    });
+  });
+
+  describe('publishingActions property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.publishingActions instanceof window.HTMLElement, true);
+    });
+  });
+
+  describe('disablePublishBtn function', () => {
+    it('should disable the publish button', () => {
+      publishBtn.disabled = false;
+      page.disablePublishBtn();
+      assert.equal(publishBtn.disabled, true);
+    });
+
+    it('should show the mollyguard controls', () => {
+      page.mollyGuard.style.visibility = 'hidden';
+      page.disablePublishBtn();
+      assert.equal(page.mollyGuard.style.visibility, 'visible');
+    });
+  });
+
+  describe('enablePublishBtn function', () => {
+    it('should enable the publish button', () => {
+      publishBtn.disabled = true;
+      page.enablePublishBtn();
+      assert.equal(publishBtn.disabled, false);
+    });
+
+    it('should hide the mollyguard controls', () => {
+      page.mollyGuard.style.visibility = 'visible';
+      page.enablePublishBtn();
+      assert.equal(page.mollyGuard.style.visibility, 'hidden');
+    });
+
+    it('should override the mollyguard when passed true', () => {
+      publishBtn.disabled = true;
+      page.enablePublishBtn(true);
+      page.disablePublishBtn();
+      assert.equal(publishBtn.disabled, false);
+    });
+
+    it('should change the mollyguard text when passed true', () => {
+      page.enablePublishBtn(true);
+      const strongEl = page.mollyGuard.querySelector('strong');
+      assert.equal(strongEl.textContent, 'Mollyguard overridden');
     });
   });
 });

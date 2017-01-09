@@ -14,12 +14,14 @@ const EditorPane = (function EditorPane() {
         el.querySelector('td').classList.add('error');
         el.querySelector('td').innerHTML = messages.join('<br>');
       });
+      page.disablePublishBtn();
     } else {
       page.editor.classList.remove('error');
       page.postMessageTable.forEach((el) => {
         el.querySelector('td').classList.remove('error');
         el.querySelector('td').innerHTML = 'All good';
       });
+      page.enablePublishBtn();
     }
 
     Object.assign(document.querySelector('.post-info-table').style, {
@@ -67,15 +69,24 @@ const EditorPane = (function EditorPane() {
     const event = document.createEvent('HTMLEvents');
     event.initEvent('change', true, false);
     page.fullHeightEditorToggle.dispatchEvent(event);
+
+    page.mollyGuard.querySelector('a').addEventListener('click', (e) => {
+      e.preventDefault();
+      page.enablePublishBtn(true);
+    });
   }
 
   function createStatusAreas() {
-    return getTemplate('info-row.html')
-      .then((html) => {
-        page.editorToolbar.insertAdjacentHTML('afterend', html);
-        page.postStatusTable.insertAdjacentHTML('beforebegin', html);
+    return Promise
+      .all([getTemplate('info-row.html'), getTemplate('mollyguard-control.html')])
+      .then((templates) => {
+        page.editorToolbar.insertAdjacentHTML('afterend', templates[0]);
+        page.postStatusTable.insertAdjacentHTML('beforebegin', templates[0]);
+        page.publishingActions.insertAdjacentHTML('afterend', templates[1]);
 
+        // Assign newly appended elements to page object
         page.postMessageTable = document.querySelectorAll('table.post-info-table');
+        page.mollyGuard = document.querySelector('#mollyguard');
       });
   }
 
