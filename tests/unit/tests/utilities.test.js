@@ -140,9 +140,9 @@ describe('getMDLink', () => {
 describe('page object', () => {
   let page;
   let publishBtn;
+  const fakeDOM = document.createElement('div');
 
   beforeEach(() => {
-    const fakeDOM = document.createElement('div');
     fakeDOM.innerHTML = `
       <input type="submit" id="publish">
       <input type="checkbox" id="editor-expand-toggle"></input>
@@ -152,6 +152,7 @@ describe('page object', () => {
       </div>
       <table class="post-info-table"></table>
       <textarea id="content">JavaScript FTW!</textarea>
+      <textarea id="excerpt"></textarea>
       <table class="post-info-table"></table>
       <table id="post-status-info"></table>
     `;
@@ -196,6 +197,12 @@ describe('page object', () => {
     });
   });
 
+  describe('excerpt property', () => {
+    it('should return a DOM element', () => {
+      assert.equal(page.excerpt instanceof window.HTMLElement, true);
+    });
+  });
+
   describe('disablePublishBtn function', () => {
     it('should disable the publish button', () => {
       publishBtn.disabled = false;
@@ -234,6 +241,21 @@ describe('page object', () => {
       page.enablePublishBtn(true);
       const strongEl = page.mollyGuard.querySelector('strong');
       assert.equal(strongEl.textContent, 'Mollyguard overridden');
+    });
+  });
+
+  describe('getSlug function', () => {
+    it('should return an empty string when the element is not present', () => {
+      assert.equal(page.getSlug(), '');
+    });
+
+    it('should return the current page slug', () => {
+      const span = document.createElement('span');
+      span.id = 'editable-post-name-full';
+      span.innerHTML = '10-reasons-why-js-rocks';
+      fakeDOM.appendChild(span);
+
+      assert.equal(page.getSlug(), '10-reasons-why-js-rocks');
     });
   });
 });

@@ -1,5 +1,6 @@
 /* exported EditorPane */
-/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator, h1Validator */
+/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator */
+/* global h1Validator, excerptValidator, slugValidator */
 
 'use strict';
 
@@ -50,6 +51,8 @@ const EditorPane = (function EditorPane() {
       authorMoreValidator,
       relativeLinkValidator,
       h1Validator,
+      excerptValidator,
+      slugValidator,
     ];
 
     runChecks(validators);

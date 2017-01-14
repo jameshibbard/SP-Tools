@@ -1,4 +1,4 @@
-/* global require, global, pageFactory, module*/
+/* global require, global, module*/
 
 const fs = require('fs');
 const vm = require('vm');
@@ -15,10 +15,4 @@ function include(path) {
   vm.runInThisContext(code, path);
 }
 
-function PageMock() {
-  const fakeDOM = document.createElement('div');
-  fakeDOM.innerHTML = '<textarea id="content"></textarea>';
-  return pageFactory(fakeDOM);
-}
-
-module.exports = { include, PageMock };
+module.exports = { include };

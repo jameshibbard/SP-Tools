@@ -99,6 +99,7 @@ function pageFactory(dom = document) {
   const postMessageTable = dom.querySelectorAll('.post-info-table');
   const postStatusTable = dom.querySelector('#post-status-info');
   const publishingActions = dom.querySelector('#misc-publishing-actions');
+  const excerpt = dom.querySelector('#excerpt');
 
   // Private
   const publishBtn = dom.querySelector('#publish');
@@ -119,6 +120,11 @@ function pageFactory(dom = document) {
     publishBtn.disabled = false;
   }
 
+  function getSlug() {
+    const el = dom.querySelector('#editable-post-name-full');
+    return el ? el.textContent : '';
+  }
+
   return {
     editor,
     editorToolbar,
@@ -126,11 +132,14 @@ function pageFactory(dom = document) {
     postMessageTable,
     postStatusTable,
     publishingActions,
+    excerpt,
     mollyGuard: null, // <div> element inserted dynamically in editorPane.js
     disablePublishBtn,
     enablePublishBtn,
+    getSlug,
   };
 }
+
 function getMDLink(obj){
   const title = (obj.title === '') ? '' : ` "${obj.title}"`;
   return `[${obj.text}](${obj.href}${title})`;
