@@ -22,7 +22,8 @@ function relativeLinkValidator(page) {
   const relativeSlugs = [];
   matches.forEach((el) => {
     if (!linkOk(el[2])) {
-      relativeSlugs.push(el[2]);
+      const relSlug = (el[2] === '')? 'empty href' : el[2];
+      relativeSlugs.push(relSlug);
     }
   });
 
@@ -50,9 +51,18 @@ function h1Validator(page) {
   };
 }
 
+/* eslint no-param-reassign: "page" */
 function excerptValidator(page) {
   const content = page.excerpt.value;
   const errorMsgs = [];
+
+  // Silently replace special tags in the excerpt
+  // as these get picked up by some aggregators
+  if (content.match(/\[special].*\[\/special]/)) {
+    page.excerpt.value = content
+      .replace(/\[special]/, '<p class="wp-special">')
+      .replace(/\[\/special]/, '</p>');
+  }
 
   if (content.includes('[author_more]')) {
     errorMsgs.push('[author_more] shortcode');

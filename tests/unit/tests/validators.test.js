@@ -58,6 +58,17 @@ describe('relativeLinkValidator', () => {
     assert.equal(JSON.stringify(output), JSON.stringify(expected));
   });
 
+  it('should return an error when given a string containing a link with an empty href', () => {
+    page.editor.value = 'Blah blah <a href="">yo!</a>';
+    const expected = {
+      isValid: false,
+      message: 'Relative link found: empty href',
+    };
+    const output = relativeLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+
   it('should mention all relative links in the error message', () => {
     page.editor.value = 'Blah blah <a href="/about-sitepoint">yo!</a>, and <a href="/jquery-is-awesome">yo!</a>';
     const expected = {
@@ -97,6 +108,14 @@ describe('excerptValidator', () => {
     const output = excerptValidator(page);
 
     assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+
+  it('should convert [special] shortcode tags to HTML equivalent', () => {
+    page.excerpt.value = '[special]I iz speshul![/special]\n\n<p>Awesome content here</p>';
+    const expected = '<p class="wp-special">I iz speshul!</p>\n\n<p>Awesome content here</p>';
+    excerptValidator(page);
+
+    assert.equal(page.excerpt.value, expected);
   });
 
   it('should return an error when given a string containing the [author_more] shortcode', () => {
