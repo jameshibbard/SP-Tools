@@ -3,7 +3,7 @@
 
   "name": "SP Tools",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
-  "version": "0.14.5",
+  "version": "0.15.0",
 
   "background": {
     "scripts": [
