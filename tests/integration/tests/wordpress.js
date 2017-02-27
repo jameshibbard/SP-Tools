@@ -5,9 +5,7 @@
 const credentials = require('../../../../creds.js');
 
 // Login to WP Dashboard
-// Assert that W3-Total Cache banner is not present
 // Go to New Post Page
-// Assert that W3-Total Cache banner is not present
 // Assert empty document displays as 'All good'
 // Test MD > HTML conversion
 // Test Capitalize and check button
@@ -37,11 +35,7 @@ module.exports = {
       .setValue('#user_pass', credentials.password)
       .click('#wp-submit')
 
-      .assert.hidden('#edge-mode')
-
       .url('https://www.sitepoint.com/wp-admin/post-new.php')
-
-      .assert.hidden('#edge-mode')
 
       .waitForElementPresent('#bandaid-md', 5000)
 

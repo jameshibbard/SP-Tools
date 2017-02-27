@@ -1,35 +1,41 @@
-"use strict";
+/* exported TagsWidget */
+/* global copyTextToClipboard */
 
-var TagsWidget = (function() {
-  var $tagsFrame = $("#tagsdiv-post_tag");
-  var $tagsContainer = $tagsFrame.find(".tagchecklist");
-  var $tagsButton;
+'use strict';
 
-  function copyTags(e){
+const TagsWidget = (function TagsWidget() {
+  const $tagsFrame = $('#tagsdiv-post_tag');
+  const $tagsContainer = $tagsFrame.find('.tagchecklist');
+  let $tagsButton;
+
+  function copyTags(e) {
     e.preventDefault();
 
-    var $tagSpans = $tagsContainer.find("span");
-    var tags = $.map($tagSpans, span => span.childNodes[2].nodeValue);
+    const $tagSpans = $tagsContainer.children('span');
+    const tags = $.map($tagSpans, span =>
+      $(span)
+      .contents()
+      .filter((index, node) => node.nodeType === 3)
+      .text()
+      .trim());
 
-    copyTextToClipboard(tags.join(", "));
+    copyTextToClipboard(tags.join(', '));
   }
 
-  function addCopyTagsButton(){
-    $tagsButton = $("<button />", {
-      id: "bandaid-copy-tags",
-      class: "wp-core-ui button",
-      text: "Copy Tags",
-      click: copyTags
+  function addCopyTagsButton() {
+    $tagsButton = $('<button />', {
+      id: 'bandaid-copy-tags',
+      class: 'wp-core-ui button',
+      text: 'Copy Tags',
+      click: copyTags,
     });
 
-    $tagsFrame.find(".ajaxtag").append($tagsButton);
-  }
-
-  function init(){
-    addCopyTagsButton();
+    $tagsFrame.find('.ajaxtag').append($tagsButton);
   }
 
   return {
-    init: init
+    init() {
+      addCopyTagsButton();
+    },
   };
-})();
+}());
