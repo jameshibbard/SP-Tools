@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 });
 
 const isArticle = $('meta[property="article:section"]').length;
-const isCategory = $('.ChannelBanner').length;
+const isCategory = $('.ChannelBackground').length;
 
 if (isArticle) {
   Article.init();

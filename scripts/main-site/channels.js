@@ -10,13 +10,14 @@ const Channel = (function() {
     "$premiumBooks": $("a[href='/premium/books/']").parent().parent(),
     "$latestHeading": $("h2:contains('Latest')").parent(),
     "$woorankBanner": $("#woorank-demand-gen"),
-    "$randomAd": $(".maestro-content-type-ad").parent()
+    "$randomAd": $(".maestro-content-type-ad").parent(),
   };
 
   const $articlesContainer = $(".sp🚧 .l-pv4");
-  const $channelBanner = $(".ChannelBanner");
-  const $channelBannerInner = $(".ChannelBanner div div").first();
+  const $channelBanner = $(".ChannelBackground");
+  const $channelBannerInner = $(".ChannelBackground div div").first();
   const $infiniteScrollTrigger = $("#Latest_infiniteScrollTrigger").prev();
+  const $adbridge = $(".l-w-100.l-d-f.l-jc-cen.l-mh-auto.l-mb4");
   let $articlePannels = $(".HomePanel_content");
 
   let API_KEY, SECRET_TOKEN;
@@ -36,6 +37,7 @@ const Channel = (function() {
   function applyElemsShowingCSS(){
     $articlesContainer.css("padding", "32px 0");
     $channelBanner.css("margin-bottom", "0");
+
   }
 
   function applyElemsHiddenCSS(){
@@ -124,6 +126,7 @@ const Channel = (function() {
     var mutationRecord = mutations[0];
     if (mutationRecord.addedNodes[0] !== undefined){
       // New posts were loaded
+      console.log($padding.length);
       $articlePannels = $(".HomePanel_content");
       attachLinkTemplate();
     }
@@ -168,6 +171,9 @@ const Channel = (function() {
       setInitialLinkState();
       addInfiniteScrollObserver();
       attachEventHandlers();
+
+      // Hiding these makes "Sponsored by MS" appear
+      $adbridge.remove();
     });
   }
 
