@@ -13,6 +13,7 @@ const Article = (function Article() {
     '$sponsors-title': $("h1:contains('Sponsors')"),
     '$sponsors-box': $("h1:contains('Sponsors')").next(),
     $baseThemeAd: $('article-promo').parent(),
+    $cheatSheetBox: $('#maestro-524'),
   };
 
   const $mainHeading = $('h1:first');
