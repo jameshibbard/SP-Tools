@@ -60,8 +60,8 @@ function excerptValidator(page) {
   // as these get picked up by some aggregators
   if (content.match(/\[special].*\[\/special]/)) {
     page.excerpt.value = content
-      .replace(/\[special]/, '<p class="wp-special">')
-      .replace(/\[\/special]/, '</p>');
+      .replace(/(<p.*?>)?\[special]/, '<p class="wp-special">')
+      .replace(/\[\/special](<\/p>)?/, '</p>');
   }
 
   if (content.includes('[author_more]')) {

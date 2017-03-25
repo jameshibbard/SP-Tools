@@ -118,6 +118,22 @@ describe('excerptValidator', () => {
     assert.equal(page.excerpt.value, expected);
   });
 
+  it('should remove additional <p> tags when converting [special] shortcode tags to HTML equivalent', () => {
+    page.excerpt.value = '<p>[special]I iz speshul![/special]</p>\n\n<p>Awesome content here</p>';
+    const expected = '<p class="wp-special">I iz speshul!</p>\n\n<p>Awesome content here</p>';
+    excerptValidator(page);
+
+    assert.equal(page.excerpt.value, expected);
+  });
+
+  it('should remove additional <p> tags including attributes when converting [special] shortcode tags to HTML equivalent', () => {
+    page.excerpt.value = '<p class="wp-special">[special]I iz speshul![/special]</p>\n\n<p>Awesome content here</p>';
+    const expected = '<p class="wp-special">I iz speshul!</p>\n\n<p>Awesome content here</p>';
+    excerptValidator(page);
+
+    assert.equal(page.excerpt.value, expected);
+  });
+
   it('should return an error when given a string containing the [author_more] shortcode', () => {
     page.excerpt.value = '[author_more]';
     const expected = { isValid: false, message: 'Excerpt contains [author_more] shortcode' };
