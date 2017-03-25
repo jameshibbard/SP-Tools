@@ -32,7 +32,7 @@ chrome.contextMenus.create({
   contexts: ['page'],
   onclick: (info, tab) => {
     chrome.tabs.sendMessage(tab.id, { text: 'getTitle' }, (title) => {
-      copyTextToClipboard(title);
+      copyTextToClipboard(title.replace(' — SitePoint', ''));
     });
   },
   documentUrlPatterns: ['*://*.sitepoint.com/*'],
@@ -56,7 +56,7 @@ chrome.contextMenus.create({
   onclick: (info) => {
     $.get(info.linkUrl, (data) => {
       const title = $(data).filter('title').text();
-      copyTextToClipboard(title);
+      copyTextToClipboard(title.replace(' — SitePoint', ''));
     });
   },
   documentUrlPatterns: ['*://*.sitepoint.com/*'],
