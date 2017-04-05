@@ -9,11 +9,12 @@ const Article = (function Article() {
     $latestCoursesandBooks: $('.ArticleContent_endcap').next().next().next(),
     $emailSubscribe: $('.CategorySubscribeForm'),
     $premiumAds: $('.u-premium-preview'),
-    $socialButtons: $('.Sharer'),
-    '$sponsors-title': $("h1:contains('Sponsors')"),
-    '$sponsors-box': $("h1:contains('Sponsors')").next(),
+    $socialButtons: $('article-sharer'),
+    '$sponsors-title': $("div.l-w-aside-i div:contains('Sponsors')"),
+    '$sponsors-box': $("div.l-w-aside-i div:contains('Sponsors')").next(),
     $baseThemeAd: $('article-promo').parent(),
-    $cheatSheetBox: $('#maestro-524'),
+    $cheatSheetBox: $('div[id^="maestro-5"]'),
+    $wordPressThemeBanner: $('article-promo'),
   };
 
   const $mainHeading = $('h1:first');

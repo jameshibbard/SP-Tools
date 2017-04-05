@@ -13,8 +13,8 @@ const Channel = (function Channel() {
     $premiumBooks: $('a[href="/premium/books/"]').parent().parent(),
     $latestHeading: $('h2:contains("Latest")').parent(),
     $woorankBanner: $('#woorank-demand-gen'),
-    $themesBanner: $('#maestro-415'),
     $randomAd: $('.maestro-content-type-ad').parent(),
+    $wordPressThemesBanner: $('[id^="maestro-"]'),
   };
 
   const $articlesContainer = $('.sp🚧 .l-pv4');

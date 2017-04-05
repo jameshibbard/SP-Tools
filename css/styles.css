@@ -3,6 +3,11 @@
   display: none !important;
 }
 
+/* Hide theme advert on forums */
+img[alt='WordPress Themes by SitePoint']{
+  display: none !important;
+}
+
 #mollyguard{
   visibility: hidden;
 }
