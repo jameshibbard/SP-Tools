@@ -27,6 +27,10 @@ chrome.extension.sendMessage({}, function (response) {
       PublishWidget.init();
 
       // Tags widget
+      // Adds "Toggle categories" button
+      CategoriesWidget.init();
+
+      // Tags widget
       // Adds "Copy tags" button
       TagsWidget.init();
 
