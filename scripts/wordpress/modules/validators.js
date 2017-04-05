@@ -68,7 +68,8 @@ function excerptValidator(page) {
     errorMsgs.push('[author_more] shortcode');
   }
 
-  if (content.includes('was peer reviewed by')) {
+  if (content.includes('was peer reviewed by') ||
+      content.includes('for having reviewed this article')) {
     errorMsgs.push('peer review credit');
   }
 
