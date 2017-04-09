@@ -7,7 +7,7 @@ const Channel = (function Channel() {
   const elems = {
     $msAdvertising: $('adblock-msg').parent(),
     $featuredArea: $('main div').first(),
-    $emailSubscribeBanner1: $('category-subscribe').parent(),
+    //$emailSubscribeBanner1: $('category-subscribe').parent(),
     $emailSubscribeBanner2: $('banner-subscribe').parent(),
     $premiumCourses: $('a[href="/premium/courses/"]').parent().parent(),
     $premiumBooks: $('a[href="/premium/books/"]').parent().parent(),
