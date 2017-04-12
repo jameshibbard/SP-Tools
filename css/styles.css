@@ -8,6 +8,10 @@ img[alt='WordPress Themes by SitePoint']{
   display: none !important;
 }
 
+img[alt='Free Year of SitePoint Premium']{
+  display: none !important;
+}
+
 #mollyguard{
   visibility: hidden;
 }
