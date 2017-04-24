@@ -219,8 +219,7 @@ td.error {
 
 #link-container {
   position: relative;
-  top: 30px;
-  left: 5px;
+  top: -12px;
   color: white;
 }
 
