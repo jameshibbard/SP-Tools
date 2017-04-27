@@ -4,17 +4,19 @@
 'use strict';
 
 const Channel = (function Channel() {
+  const themeURL = 'https://www.sitepoint.com/wordpress-restaurant-theme/';
+
   const elems = {
     $msAdvertising: $('adblock-msg').parent(),
     $featuredArea: $('main div').first(),
-    //$emailSubscribeBanner1: $('category-subscribe').parent(),
-    $emailSubscribeBanner2: $('banner-subscribe').parent(),
+    $emailSubscribeBanner: $('banner-subscribe').parent(),
     $premiumCourses: $('a[href="/premium/courses/"]').parent().parent(),
     $premiumBooks: $('a[href="/premium/books/"]').parent().parent(),
     $latestHeading: $('h2:contains("Latest")').parent(),
     $woorankBanner: $('#woorank-demand-gen'),
     $randomAd: $('.maestro-content-type-ad').parent(),
     $wordPressThemesBanner: $('[id^="maestro-"]'),
+    $wordPressThemesOffer: $(`a[href="${themeURL}"]`).parent().parent().parent(),
   };
 
   const $articlesContainer = $('.sp🚧 .l-pv4');
