@@ -16,7 +16,7 @@ const Channel = (function Channel() {
     $woorankBanner: $('#woorank-demand-gen'),
     $randomAd: $('.maestro-content-type-ad').parent(),
     $wordPressThemesBanner: $('[id^="maestro-"]'),
-    $wordPressThemesOffer: $(`a[href="${themeURL}"]`).parent().parent().parent(),
+    $wordPressThemesOffer: $(`a[href="${themeURL}"]`).parent().parent(),
   };
 
   const $articlesContainer = $('.sp🚧 .l-pv4');
