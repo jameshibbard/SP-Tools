@@ -189,3 +189,32 @@ describe('slugValidator', () => {
     assert.equal(output.isValid, true);
   });
 });
+
+/* global premiumLinkValidator */
+describe('premiumLinkValidator', () => {
+  it('should return an error when given a string with no premium link', () => {
+    const expected = {
+      isValid: false,
+      message: 'No SitePoint Premium link found',
+    };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+
+  it('should return a success response when given a string containing a Premium Link with double quotes', () => {
+    page.editor.value = '<a href="https://www.sitepoint.com/premium/courses/introduction-to-javascript-2908"></a>';
+    const expected = { isValid: true };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+
+  it('should return a success response when given a string containing a Premium Link with single quotes', () => {
+    page.editor.value = "<a href='https://www.sitepoint.com/premium/courses/introduction-to-javascript-2908'></a>";
+    const expected = { isValid: true };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+});

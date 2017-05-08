@@ -13,6 +13,7 @@ const credentials = require('../../../../creds.js');
 // Test Headline Analysis
 // Test Rebuild Link and Copy Link buttons
 // Test [author_more] notification
+// Test Premium link notification
 // Test that relative links and empty links are flagged
 // Test that h1 tags are flagged
 // Test that [author_more] and peer review credit in excerpt are flagged
@@ -77,7 +78,9 @@ module.exports = {
       .keys(browser.Keys.NULL)
 
       .assert.containsText('.proofreader-main-row > td', 'Missing [author_more]')
-      .setValue('#content', '\n\n[author_more]')
+      .assert.containsText('.proofreader-main-row > td', 'No SitePoint Premium link found')
+
+      .setValue('#content', '\n\n[author_more]\n\n<a href="https://www.sitepoint.com/premium/courses/introduction-to-javascript-2908"></a>')
       .pause(2000)
       .assert.containsText('.proofreader-main-row > td', 'All good')
 
@@ -118,7 +121,11 @@ module.exports = {
       .pause(500)
       .clearValue('#excerpt')
       .clearValue('#content')
-      .setValue('#content', '<h2>JavaScript</h2>[author_more]')
+      .setValue('#content', `
+        <h2>JavaScript</h2>
+        [author_more]
+        <a href="https://www.sitepoint.com/premium/courses/introduction-to-javascript-2908"></a>
+      `)
 
       .clearValue('#title')
       .setValue('#title', 'this is a test')

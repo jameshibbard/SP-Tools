@@ -98,3 +98,26 @@ function slugValidator(page) {
     message: isValid ? null : 'Post URL appears incorrect',
   };
 }
+
+function premiumLinkValidator(page) {
+  const rx = /<a.*>.*<\/a>/ig;
+  const matches = getAllMatches(rx, page.editor.value);
+  let premiumLinkFound = false;
+
+  matches.forEach((el) => {
+    const pattern = /.*href="(.*)".*/;
+    const hrefValue = el[0].replace(pattern,'$1');
+    if (hrefValue.match(/sitepoint.com\/premium/)){
+      premiumLinkFound = true;
+    }
+  });
+
+  if (premiumLinkFound) {
+   return { isValid: true };
+  }
+
+  return {
+    isValid: false,
+    message: 'No SitePoint Premium link found',
+  };
+}
