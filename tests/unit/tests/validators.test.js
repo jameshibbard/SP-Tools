@@ -217,4 +217,20 @@ describe('premiumLinkValidator', () => {
 
     assert.equal(JSON.stringify(output), JSON.stringify(expected));
   });
+
+  it('should return a success response when given a string containing a Premium Link in mixed case', () => {
+    page.editor.value = "<a href='https://www.SitePoint.com/Premium/courses/introduction-to-javascript-2908'></a>";
+    const expected = { isValid: true };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
+
+  it('should return a success response when given a string containing a Premium Link without www', () => {
+    page.editor.value = "<a href='https://sitepoint.com/Premium/courses/introduction-to-javascript-2908'></a>";
+    const expected = { isValid: true };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
 });

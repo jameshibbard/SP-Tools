@@ -107,7 +107,7 @@ function premiumLinkValidator(page) {
   matches.forEach((el) => {
     const pattern = /.*href="(.*)".*/;
     const hrefValue = el[0].replace(pattern,'$1');
-    if (hrefValue.match(/sitepoint.com\/premium/)){
+    if (hrefValue.toLowerCase().match(/sitepoint.com\/premium/)){
       premiumLinkFound = true;
     }
   });
