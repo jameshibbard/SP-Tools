@@ -100,7 +100,7 @@ function slugValidator(page) {
 }
 
 function premiumLinkValidator(page) {
-  const rx = /<a.*>.*<\/a>/ig;
+  const rx = /<a[^>]*>[^<]*<\/a>/ig;
   const matches = getAllMatches(rx, page.editor.value);
   let premiumLinkFound = false;
 
