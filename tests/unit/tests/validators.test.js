@@ -233,4 +233,12 @@ describe('premiumLinkValidator', () => {
 
     assert.equal(JSON.stringify(output), JSON.stringify(expected));
   });
+
+  it('should return success when given a string with both a Premium a non-Premium link', () => {
+    page.editor.value = '<a href="https://sitepoint.com/Premium/courses/introduction-to-javascript-2908">Link 1</a> and <a href="http://go.com">Link 2</a>';
+    const expected = { isValid: true };
+    const output = premiumLinkValidator(page);
+
+    assert.equal(JSON.stringify(output), JSON.stringify(expected));
+  });
 });
