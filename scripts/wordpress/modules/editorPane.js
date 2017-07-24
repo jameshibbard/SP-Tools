@@ -1,6 +1,6 @@
 /* exported EditorPane */
 /* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator */
-/* global h1Validator, excerptValidator, slugValidator, premiumLinkValidator */
+/* global h1Validator, excerptValidator, slugValidator */
 
 'use strict';
 
@@ -53,7 +53,6 @@ const EditorPane = (function EditorPane() {
       h1Validator,
       excerptValidator,
       slugValidator,
-      premiumLinkValidator,
     ];
 
     runChecks(validators);
