@@ -22,7 +22,6 @@ const Channel = (function Channel() {
   const $articlesContainer = $('.sp🚧 .l-pv4');
   const $channelBanner = $('.ChannelBackground');
   const $channelBannerInner = $('.ChannelBackground div div').first();
-  const $infiniteScrollTrigger = $('#Latest_infiniteScrollTrigger').prev();
   const $adbridge = $('.l-w-100.l-d-f.l-jc-cen.l-mh-auto.l-mb4');
   let $articlePannels = $('.HomePanel_content');
 
@@ -33,6 +32,7 @@ const Channel = (function Channel() {
     SECRET_TOKEN = items.parselySecret;
   });
 
+  let $infiniteScrollTrigger;
   let $toggleElementsLink;
   let linksTemplate;
 
@@ -153,6 +153,8 @@ const Channel = (function Channel() {
   }
 
   function addInfiniteScrollObserver() {
+    $infiniteScrollTrigger = $('#Latest_infiniteScrollTrigger').prev();
+
     // Ensures that 'Open in Parsely' links get added
     // to dynamically loaded posts
     //
