@@ -1,5 +1,5 @@
 /* exported EditorToolbar */
-/* global showdown, getAllHeadings, getTemplate, Handlebars, html_beautify, insertAt */
+/* global showdown, getAllHeadings, getTemplate, Handlebars, insertAt */
 
 'use strict';
 
@@ -70,43 +70,10 @@ const EditorToolbar = (function EditorToolbar() {
       });
   }
 
-  function getBeautifier() {
-    const options = {
-      indent_size: 2,
-      preserve_newlines: false,
-      wrap_line_length: 0,
-    };
-
-    return function beautify(html) {
-      let beautifiedHTML = html_beautify(html, options);
-      beautifiedHTML = beautifiedHTML.replace('<p>[author_more]</p>', '[author_more]');
-
-      return beautifiedHTML;
-    };
-  }
-
-  function addBeautyButton() {
-    const beautifier = getBeautifier();
-    const $beautifyButton = $('<input />', {
-      type: 'button',
-      value: 'Beautify',
-      class: 'ed_button button button-small',
-      id: 'bandaid-beautify',
-      title: 'Beautify HTML',
-      click: () => {
-        const html = $mainTextArea.val();
-        const beautifulHtml = beautifier(html);
-        $mainTextArea.val(beautifulHtml);
-      },
-    });
-    $editorToolbar.append($beautifyButton);
-  }
-
   return {
     init() {
       addToCButton();
       addMDButton();
-      addBeautyButton();
     },
   };
 }());

@@ -15,6 +15,7 @@ const Article = (function Article() {
     $baseThemeAd: $('article-promo').parent(),
     $cheatSheetBox: $('div[id^="maestro-5"]'),
     $wordPressThemeBanner: $('article-promo'),
+    $surveyBanner: $("span:contains('SitePoint 2017 Survey')").closest('div.l-mb3'),
   };
 
   const $mainHeading = $('h1:first');
