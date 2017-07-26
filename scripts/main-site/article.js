@@ -16,6 +16,7 @@ const Article = (function Article() {
     $cheatSheetBox: $('div[id^="maestro-5"]'),
     $wordPressThemeBanner: $('article-promo'),
     $surveyBanner: $("span:contains('SitePoint 2017 Survey')").closest('div.l-mb3'),
+    $midArticlePremiumContent: $("#premium-mid"),
   };
 
   const $mainHeading = $('h1:first');
@@ -49,7 +50,7 @@ const Article = (function Article() {
 
   function setInitialLinkState() {
     const i = setInterval(() => {
-      if ($('.ArticleAside_row').length) {
+      if ($('.ArticleAside_row').length || $("#premium-mid").length) {
         if (elemsHidden()) {
           setLinkText('Show');
           toggleElements();

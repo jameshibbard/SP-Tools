@@ -7,8 +7,9 @@ const Channel = (function Channel() {
   const themeURL = 'https://www.sitepoint.com/wordpress-restaurant-theme/';
 
   const elems = {
+    $channelBlurb: undefined,
     $msAdvertising: $('adblock-msg').parent(),
-    $featuredArea: $('main div').first(),
+    $featuredArea: $("h2:contains('Featured Articles')").parent().parent().parent(),
     $emailSubscribeBanner: $('banner-subscribe').parent(),
     $premiumCourses: $('a[href="/premium/courses/"]').parent().parent(),
     $premiumBooks: $('a[href="/premium/books/"]').parent().parent(),
@@ -18,6 +19,9 @@ const Channel = (function Channel() {
     $wordPressThemesBanner: $('[id^="maestro-"]'),
     $wordPressThemesOffer: $(`a[href="${themeURL}"]`).parent().parent(),
   };
+
+  // Hack, as not every channel has a blurb
+  elems.$channelBlurb = elems.$featuredArea.prev().prev();
 
   const $articlesContainer = $('.sp🚧 .l-pv4');
   const $channelBanner = $('.ChannelBackground');

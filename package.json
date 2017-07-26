@@ -1,6 +1,6 @@
 {
   "name": "SP-Tools",
-  "version": "0.16.4",
+  "version": "0.16.5",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
   "main": "index.js",
   "directories": {
