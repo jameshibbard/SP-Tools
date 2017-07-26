@@ -17,6 +17,10 @@ img[alt='Free Year of SitePoint Premium']{
   display: none !important;
 }
 
+#serie_post_shorttitle{
+  max-width: 100%;
+}
+
 #mollyguard{
   visibility: hidden;
 }
