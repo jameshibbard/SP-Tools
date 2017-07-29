@@ -15,15 +15,15 @@
 module.exports = {
   'Test Post Page Mods' : function (browser) {
     browser
-      .url('https://www.sitepoint.com/quick-tip-persist-checkbox-checked-state-after-page-reload/')
+      .url('https://www.sitepoint.com/bundle-static-site-webpack/')
       .waitForElementPresent("#bandaid-toggle-link", 5000)
 
-      .assert.visible("div.CategorySubscribeForm")
+      .assert.visible("div#premium-mid")
       .assert.containsText("#bandaid-toggle-link", "Hide Superfluous Elements")
 
       .click("#bandaid-toggle-link")
 
-      .assert.hidden("div.CategorySubscribeForm")
+      .assert.hidden("div#premium-mid")
       .assert.containsText("#bandaid-toggle-link", "Show Superfluous Elements")
 
       .assert.visible(".parsely-link-block")
@@ -33,10 +33,7 @@ module.exports = {
       .click(".get-total-views")
       .assert.containsText(".get-total-views", "fetching")
 
-      .assert.attributeContains(".open-parsely", "href", "https://dash.parsely.com/sitepoint.com/find?url=https%3A%2F%2Fwww.sitepoint.com%2Fquick-tip-persist-checkbox-checked-state-after-page-reload%2F")
-
-      .execute('scrollTo(0,5000)')
-      .assert.hidden(".NavBar_stickyZone")
+      .assert.attributeContains(".open-parsely", "href", "https://dash.parsely.com/sitepoint.com/find?url=https%3A%2F%2Fwww.sitepoint.com%2Fbundle-static-site-webpack%2F")
 
       .url('https://www.sitepoint.com/javascript/')
       .waitForElementVisible("#bandaid-toggle-link", 5000)

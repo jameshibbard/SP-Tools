@@ -12,11 +12,6 @@ img[alt='Free Year of SitePoint Premium']{
   display: none !important;
 }
 
-/* Hide "My Dashboard" sticky bar on article page */
-.NavBar_stickyZone{
-  display: none !important;
-}
-
 #serie_post_shorttitle{
   max-width: 100%;
 }
