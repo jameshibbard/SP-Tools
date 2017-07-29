@@ -5,16 +5,7 @@
   "description": "A Chrome extension to help with various SitePoint editing tasks",
   "version": "0.16.6",
 
-  "background": {
-    "scripts": [
-      "lib/jquery-2.1.1.min.js",
-      "scripts/utils/utilities.js",
-      "scripts/background.js"
-    ]
-  },
-
   "permissions": [
-    "contextMenus",
     "activeTab",
     "tabs",
     "storage",
@@ -60,32 +51,6 @@
         "scripts/wordpress/newPostPage.js"
       ],
       "css": [ "css/jquery.datetimepicker.css" ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [ "https://sitepointdotcom.createsend.com/campaigns/content/edit/*" ],
-      "js": [
-        "lib/jquery-2.1.1.min.js",
-        "lib/showdown.min.js",
-        "scripts/campaign-monitor/edit.js"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [ "https://sitepointdotcom.createsend.com/campaigns/gallery/step2/*" ],
-      "js": [
-        "lib/jquery-2.1.1.min.js",
-        "scripts/campaign-monitor/plain-text.js"
-      ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [ "*://*/*" ],
-      "js": [
-        "lib/jquery-2.1.1.min.js",
-        "scripts/utils/utilities.js",
-        "scripts/main.js"
-      ],
       "run_at": "document_idle"
     }
   ],
