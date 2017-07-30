@@ -45,6 +45,7 @@
         "scripts/wordpress/modules/editorPane.js",
         "scripts/wordpress/modules/publishWidget.js",
         "scripts/wordpress/modules/tagsWidget.js",
+        "scripts/wordpress/modules/categoriesWidget.js",
         "scripts/wordpress/modules/seriesWidget.js",
         "scripts/wordpress/modules/syntaxHighlightingWidget.js",
         "scripts/wordpress/modules/postPage.js",
