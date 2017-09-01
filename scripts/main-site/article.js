@@ -122,7 +122,7 @@ const Article = (function Article() {
   }
 
   function init() {
-    $linkContainer.insertAfter($mainHeading);
+    $linkContainer.insertAfter($mainHeading.parent());
 
     getTemplate('parsely-links.html')
     .then((html) => {
