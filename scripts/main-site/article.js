@@ -17,6 +17,7 @@ const Article = (function Article() {
     $wordPressThemeBanner: $('article-promo'),
     $surveyBanner: $("span:contains('SitePoint 2017 Survey')").closest('div.l-mb3'),
     $midArticlePremiumContent: $("#premium-mid"),
+    $wixCodeBanner: $('#bsa_horz_sponsor'),
   };
 
   const $mainHeading = $('h1:first');

@@ -9,7 +9,7 @@ const Channel = (function Channel() {
   const elems = {
     $channelBlurb: undefined,
     $msAdvertising: $('adblock-msg').parent(),
-    $featuredArea: $("h2:contains('Featured Articles')").parent().parent().parent(),
+    $featuredArea: $("h2:contains('Featured')").parent().parent().parent(),
     $emailSubscribeBanner: $('banner-subscribe').parent(),
     $premiumCourses: $('a[href="/premium/courses/"]').parent().parent(),
     $premiumBooks: $('a[href="/premium/books/"]').parent().parent(),
@@ -18,6 +18,7 @@ const Channel = (function Channel() {
     $randomAd: $('.maestro-content-type-ad').parent(),
     $wordPressThemesBanner: $('[id^="maestro-"]'),
     $wordPressThemesOffer: $(`a[href="${themeURL}"]`).parent().parent(),
+    $wixCodeBanner: $('#bsa_horz_sponsor'),
   };
 
   // Hack, as not every channel has a blurb
