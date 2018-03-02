@@ -48,7 +48,6 @@ const EditorPane = (function EditorPane() {
 
   function startChecker() {
     const validators = [
-      authorMoreValidator,
       relativeLinkValidator,
       h1Validator,
       excerptValidator,
