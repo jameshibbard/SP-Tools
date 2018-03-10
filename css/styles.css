@@ -224,6 +224,7 @@ td.error {
 #link-container {
   position: relative;
   top: -12px;
+  padding-bottom: 10px;
   color: white;
 }
 
