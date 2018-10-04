@@ -8,9 +8,6 @@ var PostPage = (function() {
 
     // Is this a good headline?
     $(".CosheduleButtonContainer").remove();
-
-    // Publish to Discourse option
-    $("input[name='publish_to_discourse']").closest("div").remove();
   }
 
   function init(){
