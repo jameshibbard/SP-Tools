@@ -1,3 +1,18 @@
+a.ga-link {
+  position: relative;
+  top: -25px;
+  color: white;
+  text-decoration: underline;
+ }
+
+a.ga-link:hover {
+  text-decoration: none;
+}
+
+a.ga-link:visited {
+  color: white;
+}
+
 /* Hide WordPress update nag box and W3 Total Cache banner */
 #edge-mode, div.update-nag, #carbonads{
   display: none !important;

@@ -1,15 +1,10 @@
-/* global chrome, Article, Channel */
+/* global chrome, MainSite */
 
 'use strict';
 
-const isArticle = $('meta[property="article:section"]').length;
-const isCategory = $('.ChannelBackground').length;
-
-if (isArticle) {
-  Article.init();
-} else if (isCategory) {
-  Channel.init();
-}
+// Extension seems to be running on nay site on the internet for Context Menu > Get MD link
+// This functionality is broken and should be removed.
+if (window.location.origin.indexOf('sitepoint.com') !== -1) MainSite.init();
 
 // Responds to context menu options
 //

@@ -3,7 +3,7 @@
 
   "name": "SP Tools",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
-  "version": "0.17.6",
+  "version": "0.18.0",
 
   "background": {
     "scripts": [
@@ -17,8 +17,9 @@
     "activeTab",
     "contextMenus",
     "storage",
-    "tabs",
-    "https://api.parsely.com/"
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.sitepoint.com/"
   ],
 
   "content_scripts": [
@@ -28,8 +29,7 @@
         "lib/jquery-2.1.1.min.js",
         "scripts/utils/utilities.js",
         "lib/moment.min.js",
-        "scripts/main-site/article.js",
-        "scripts/main-site/channels.js",
+        "scripts/main-site/index.js",
         "scripts/main.js"
       ],
       "css": [ "css/styles.css" ],

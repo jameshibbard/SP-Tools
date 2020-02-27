@@ -4,12 +4,14 @@
     <meta charset=utf-8 />
     <title>Options Page</title>
     <style>
-      input{
-        padding: 3px;
-        width: 500px;
+      label {
+        display: block;
+        margin-bottom: 6px;
       }
-      div{
-        margin-bottom: 10px;
+      input {
+        padding: 0;
+        margin:0;
+        vertical-align: bottom;
       }
     </style>
   </head>
@@ -22,19 +24,16 @@
       <select id="sitepointChannel"></select>
     </div>
 
-    <p>Parsely API Key: <span id="api-key-status"></span></p>
-    <div>
-      <input type="text" placeholder="Enter new API Key" id="parselyAPIKey"/>
-      <button class="parsleyAPISettings">Save</button>
-    </div>
+    <h2>Main Site</h2>
+    <label>
+      <input type="checkbox" id="clean-up-ui">
+      Clean up UI
+    </label>
+    <label>
+      <input type="checkbox" id="infinite-scroll">
+      Disable infite scroll
+    </label>
 
-    <p>Parsely Secret Token: <span id="secret-token-status"></span></p>
-    <div>
-      <input type="text" placeholder="Enter new Secret Token" id="parselySecret"/>
-      <button class="parsleyAPISettings">Save</button>
-    </div>
-
-    <script src="../lib/jquery-2.1.1.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
