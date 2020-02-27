@@ -3,7 +3,7 @@
 
   "name": "SP Tools",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
-  "version": "0.18.0",
+  "version": "0.18.1",
 
   "background": {
     "scripts": [
@@ -14,7 +14,6 @@
   },
 
   "permissions": [
-    "activeTab",
     "contextMenus",
     "storage",
     "webRequest",
@@ -61,15 +60,6 @@
         "scripts/wordpress/newPostPage.js"
       ],
       "css": [ "css/jquery.datetimepicker.css" ],
-      "run_at": "document_idle"
-    },
-    {
-      "matches": [ "*://*/*" ],
-      "js": [
-        "lib/jquery-2.1.1.min.js",
-        "scripts/utils/utilities.js",
-        "scripts/main.js"
-      ],
       "run_at": "document_idle"
     }
   ],

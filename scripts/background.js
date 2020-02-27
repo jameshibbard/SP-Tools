@@ -1,4 +1,4 @@
-/* global chrome, copyTextToClipboard, getMDLink */
+/* global chrome, copyTextToClipboard */
 
 'use strict';
 
@@ -51,14 +51,12 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
   title: 'Get MD link',
   contexts: ['link'],
-  onclick: (info, tab) => {
-    chrome.tabs.sendMessage(tab.id, 'getLinkProperties', (props) => {
-      const MDLink = getMDLink(props);
-      copyTextToClipboard(MDLink);
-    });
+  onclick: (info) => {
+    const selectedTextPresent = Object.prototype.hasOwnProperty.call(info, 'selectionText');
+    const text = selectedTextPresent ? info.selectionText : 'xxx';
+    copyTextToClipboard(`[${text}](${info.linkUrl})`);
   },
 });
-
 
 // Turn off infinite scroll functionality. This comes from a WordPress plugin at:
 // https://www.sitepoint.com/wp-content/plugins/ajax-load-more/core/dist/js/ajax-load-more.min.js?ver=5.1.2
