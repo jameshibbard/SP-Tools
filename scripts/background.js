@@ -72,13 +72,13 @@ function toggleInfiniteScroll() {
     if (res['infinite-scroll']) {
       chrome.webRequest.onBeforeRequest.addListener(
         blockInfiniteScroll,
-        { urls: ['<all_urls>'] },
+        { urls: ['https://www.sitepoint.com/wp-content/plugins/ajax-load-more/*'] },
         ['blocking'],
       );
     } else {
       chrome.webRequest.onBeforeRequest.removeListener(
         blockInfiniteScroll,
-        { urls: ['<all_urls>'] },
+        { urls: ['https://www.sitepoint.com/wp-content/plugins/ajax-load-more/*'] },
         ['blocking'],
       );
     }
