@@ -37,11 +37,9 @@
   "homepage": "https://github.com/sitepoint-editors/SP-Tools#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.10.2",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
     "nightwatch": "^0.9.9"
