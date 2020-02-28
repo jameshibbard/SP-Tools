@@ -1,6 +1,6 @@
 {
   "name": "SP-Tools",
-  "version": "0.17.6",
+  "version": "0.18.2",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha tests/unit/tests && exit 0",
-    "nightwatch": "node_modules/.bin/nightwatch --config tests/integration/nightwatch.json",
+    "nightwatch": "node_modules/.bin/nightwatch --config tests/integration/nightwatch.config.js",
     "lint": "eslint $FILE; exit 0",
     "get-selenium": "wget --directory-prefix=tests/integration/bin http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar",
     "get-chrome-driver": "wget --directory-prefix=tests/integration/bin https://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sitepoint-editors/SP-Tools.git"
+    "url": "git+https://github.com/jameshibbard/SP-Tools.git"
   },
   "private": true,
   "keywords": [],
@@ -36,12 +36,13 @@
   },
   "homepage": "https://github.com/sitepoint-editors/SP-Tools#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
+    "chromedriver": "^80.0.1",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
-    "jsdom": "^9.8.3",
-    "mocha": "^3.1.2",
-    "nightwatch": "^0.9.9"
+    "jsdom": "^10.0.0",
+    "mocha": "^7.1.0",
+    "nightwatch": "^1.3.4"
   }
 }
