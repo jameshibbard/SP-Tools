@@ -1,7 +1,23 @@
-/* global chrome, copyTextToClipboard */
+/* global chrome */
 
 'use strict';
 
+// Utility function
+function copyTextToClipboard(text) {
+  const copyFrom = document.createElement('textarea');
+  copyFrom.textContent = text;
+  const body = document.getElementsByTagName('body')[0];
+  body.appendChild(copyFrom);
+  copyFrom.select();
+  document.execCommand('copy');
+  body.removeChild(copyFrom);
+}
+
+function handleFetchError(err) {
+  console.warn('Something went wrong.', err);
+}
+
+// Context menu entries
 chrome.contextMenus.create({
   title: 'Copy description',
   contexts: ['page'],
@@ -28,10 +44,15 @@ chrome.contextMenus.create({
   title: 'Copy target description',
   contexts: ['link'],
   onclick: (info) => {
-    $.get(info.linkUrl, (data) => {
-      const desc = $(data).filter("meta[name='description']").attr('content');
-      copyTextToClipboard(desc);
-    });
+    fetch(info.linkUrl)
+      .then((res) => res.text())
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const desc = doc.querySelector("meta[name='description']").getAttribute('content');
+        copyTextToClipboard(desc);
+      })
+      .catch(handleFetchError);
   },
   documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });
@@ -40,10 +61,15 @@ chrome.contextMenus.create({
   title: 'Copy target title',
   contexts: ['link'],
   onclick: (info) => {
-    $.get(info.linkUrl, (data) => {
-      const title = $(data).filter('title').text();
-      copyTextToClipboard(title.replace(' — SitePoint', ''));
-    });
+    fetch(info.linkUrl)
+      .then((res) => res.text())
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const title = doc.querySelector('title').textContent;
+        copyTextToClipboard(title.replace(' — SitePoint', ''));
+      })
+      .catch(handleFetchError);
   },
   documentUrlPatterns: ['*://*.sitepoint.com/*'],
 });

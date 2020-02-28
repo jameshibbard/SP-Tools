@@ -6,11 +6,7 @@
   "version": "0.18.2",
 
   "background": {
-    "scripts": [
-      "lib/jquery-2.1.1.min.js",
-      "scripts/utils/utilities.js",
-      "scripts/background.js"
-    ]
+    "scripts": [ "scripts/background.js" ]
   },
 
   "permissions": [

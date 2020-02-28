@@ -67,18 +67,23 @@ const MainSite = (function MainSite() {
       if (!res['clean-up-ui']) return;
 
       // Elements to remove
+      // Don't mess with the modals, as that kills scrollings
       [
-        'sp-social-share',
-        '.sendpulse-prompt',
-        '.acsb-trigger',
-        'featured-posts',
-        '#navigation-bar+.NavBar_offsetSpacer',
-        '.qc-cmp-persistent-link',
+        'sp-social-share', // Share widget
+        '.sendpulse-prompt', // Web push notifications widget
+        '.acsb-trigger', // Accesiblity widget
+        'featured-posts', // Featured posts, obvs
+        '#navigation-bar+.NavBar_offsetSpacer', // Spacer for sticky nav bar
+        '.qc-cmp-persistent-link', // Privacy popup trigger
+        '.sp-smartbar', // Offers bar
       ]
         .forEach((selector) => removeElement(selector));
 
       // Make navbar unsticky
       document.querySelector('#navigation-bar').classList.remove('l-p-fix');
+
+      // Remove smartbar offset
+      document.body.style['margin-top'] = 0;
     });
   }
 
