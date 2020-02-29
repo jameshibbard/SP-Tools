@@ -1,7 +1,22 @@
-/* exported MainSite */
-/* global chrome, moment */
+/* global chrome */
 
 'use strict';
+
+// Responds to context menu options
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.text) {
+    switch (msg.text) {
+      case 'getTitle':
+        sendResponse(document.querySelector('title').textContent);
+        break;
+      case 'getDesc':
+        sendResponse(document.querySelector('meta[name="description"]').getAttribute('content'));
+        break;
+      default:
+        sendResponse('');
+    }
+  }
+});
 
 const MainSite = (function MainSite() {
   function removeElement(selector, timeElapsed = 0) {
@@ -22,15 +37,17 @@ const MainSite = (function MainSite() {
   }
 
   function buildGoogleAnalyticsHref() {
-    const dateString = document
-      .querySelector('ol.Article_breadcrumb')
-      .children
-      .item(1)
-      .textContent
-      .trim();
+    // Each article has a meta tag that tells you when it was published
+    // <meta property="article:published_time" content="2020-02-20T18:00:25+00:00" />
+    // We can use this to get the from date
+    const metaTag = document.querySelector('meta[property="article:published_time"]');
+    const fromDate = metaTag.getAttribute('content').replace(/-/g, '').replace(/T.*$/, '');
 
-    const fromDate = moment(new Date(dateString)).format('YYYYMMDD');
-    const toDate = moment(new Date()).format('YYYYMMDD');
+    // Use the toISOString function to get today's date as yyyymmdd
+    // https://stackoverflow.com/a/28431880
+    const today = new Date();
+    const toDate = today.toISOString().substring(0, 10).replace(/-/g, '');
+
     const slug = window.location.href
       .replace('https://www.sitepoint.com/', '')
       .replace(/\/$/, '');
@@ -67,7 +84,7 @@ const MainSite = (function MainSite() {
       if (!res['clean-up-ui']) return;
 
       // Elements to remove
-      // Don't mess with the modals, as that kills scrollings
+      // Don't mess with the modals, as that kills scrolling
       [
         'sp-social-share', // Share widget
         '.sendpulse-prompt', // Web push notifications widget
@@ -91,3 +108,9 @@ const MainSite = (function MainSite() {
     init,
   };
 }());
+
+const isSitePoint = window.location.origin.indexOf('sitepoint.com') !== -1;
+const isWordPress = window.location.pathname.indexOf('wp-admin') !== -1;
+
+// Only run on sitepoint.com main site
+if (isSitePoint && !isWordPress) MainSite.init();
