@@ -1,3 +1,4 @@
+/* Google Analytics link */
 a.ga-link {
   position: relative;
   top: -25px;
@@ -18,7 +19,7 @@ a.ga-link:visited {
   display: none !important;
 }
 
-/* Hide theme advert on forums */
+/* Hide theme advert on forums
 img[alt='WordPress Themes by SitePoint']{
   display: none !important;
 }
@@ -26,7 +27,9 @@ img[alt='WordPress Themes by SitePoint']{
 img[alt='Free Year of SitePoint Premium']{
   display: none !important;
 }
+*/
 
+/* WordPress */
 #serie_post_shorttitle{
   max-width: 100%;
 }
