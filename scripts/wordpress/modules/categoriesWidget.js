@@ -23,7 +23,7 @@ const CategoriesWidget = (function CategoriesWidget() {
   };
 
   function toggleMyCategories() {
-    const checked = this.checked;
+    const { checked } = this;
 
     // Move this otside of event handler
     chrome.storage.sync.get(['sitepointChannel'], (items) => {

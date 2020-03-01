@@ -1,6 +1,5 @@
 /* exported EditorPane */
-/* global getTemplate, pageFactory, authorMoreValidator, relativeLinkValidator */
-/* global h1Validator, excerptValidator, slugValidator */
+/* global getTemplate, pageFactory, relativeLinkValidator h1Validator, excerptValidator, slugValidator */
 
 'use strict';
 

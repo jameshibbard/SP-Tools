@@ -1,20 +1,22 @@
-"use strict";
+/* exported PostPage */
 
-var PostPage = (function() {
-  function hideUnnecessaryElements(){
+'use strict';
+
+const PostPage = (function PostPage() {
+  function hideUnnecessaryElements() {
     // WP own date input
     // Why are we hiding this, not removing it?
-    $(".timestamp-wrap").hide();
+    $('.timestamp-wrap').hide();
 
     // Is this a good headline?
-    $(".CosheduleButtonContainer").remove();
+    $('.CosheduleButtonContainer').remove();
   }
 
-  function init(){
+  function init() {
     hideUnnecessaryElements();
   }
 
   return {
-    init: init
+    init,
   };
-})();
+}());

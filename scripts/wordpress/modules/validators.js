@@ -22,7 +22,7 @@ function relativeLinkValidator(page) {
   const relativeSlugs = [];
   matches.forEach((el) => {
     if (!linkOk(el[2])) {
-      const relSlug = (el[2] === '')? 'empty href' : el[2];
+      const relSlug = (el[2] === '') ? 'empty href' : el[2];
       relativeSlugs.push(relSlug);
     }
   });
@@ -51,7 +51,6 @@ function h1Validator(page) {
   };
 }
 
-/* eslint no-param-reassign: "page" */
 function excerptValidator(page) {
   const content = page.excerpt.value;
   const errorMsgs = [];
@@ -59,6 +58,7 @@ function excerptValidator(page) {
   // Silently replace special tags in the excerpt
   // as these get picked up by some aggregators
   if (content.match(/\[special].*\[\/special]/)) {
+    /* eslint-disable-next-line no-param-reassign */
     page.excerpt.value = content
       .replace(/(<p.*?>)?\[special]/, '<p class="wp-special">')
       .replace(/\[\/special](<\/p>)?/, '</p>');
@@ -68,8 +68,8 @@ function excerptValidator(page) {
     errorMsgs.push('[author_more] shortcode');
   }
 
-  if (content.includes('was peer reviewed by') ||
-      content.includes('for having reviewed this article')) {
+  if (content.includes('was peer reviewed by')
+      || content.includes('for having reviewed this article')) {
     errorMsgs.push('peer review credit');
   }
 

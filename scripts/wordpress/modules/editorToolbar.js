@@ -66,7 +66,7 @@ const EditorToolbar = (function EditorToolbar() {
             $mainTextArea.val(insertAt(html, toc, cursorPosition));
           },
         })
-        .appendTo($editorToolbar);
+          .appendTo($editorToolbar);
       });
   }
 
