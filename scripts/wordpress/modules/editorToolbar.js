@@ -1,5 +1,5 @@
 /* exported EditorToolbar */
-/* global showdown, getAllHeadings, getTemplate, Handlebars, insertAt */
+/* global showdown */
 
 'use strict';
 
@@ -46,33 +46,8 @@ const EditorToolbar = (function EditorToolbar() {
     $editorToolbar.append($convertButton);
   }
 
-  function addToCButton() {
-    getTemplate('toc.hbs')
-      .then((tpl) => {
-        const renderToc = Handlebars.compile(tpl);
-
-        $('<input />', {
-          id: 'sp-tools-toc',
-          type: 'button',
-          value: 'ToC',
-          class: 'ed_button button button-small',
-          title: 'Insert a Table of Contents',
-          click: () => {
-            const html = $mainTextArea.val();
-            const headings = getAllHeadings(html);
-            const toc = renderToc({ headings });
-            const cursorPosition = $mainTextArea.prop('selectionStart');
-
-            $mainTextArea.val(insertAt(html, toc, cursorPosition));
-          },
-        })
-          .appendTo($editorToolbar);
-      });
-  }
-
   return {
     init() {
-      addToCButton();
       addMDButton();
     },
   };

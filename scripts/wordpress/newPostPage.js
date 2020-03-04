@@ -1,8 +1,4 @@
-/*
-global
-TagsWidget EditorToolbar TitleArea EditorPane PublishWidget
-CategoriesWidget SeriesWidget SyntaxHighlightingWidget PostPage
-*/
+/* global TagsWidget EditorToolbar TitleArea EditorPane PublishWidget CategoriesWidget PostPage */
 
 // Editor bar
 // Adds button to convert MD -> HTML
@@ -33,15 +29,6 @@ CategoriesWidget.init();
 // Tags widget
 // Adds "Copy tags" button
 TagsWidget.init();
-
-// Series Widget
-// Adds filter functionality to series widget
-SeriesWidget.init();
-
-// Syntax Highlighting widget
-// Syntax highlighting defaults to primary category
-// Corrects bug in custom fields implementation
-SyntaxHighlightingWidget.init();
 
 // Generic changes applied to whole page
 // Hides unnecessary elements
