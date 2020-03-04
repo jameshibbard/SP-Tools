@@ -27,10 +27,10 @@
     {
       "matches": [ "https://www.sitepoint.com/wp-admin/post*" ],
       "js": [
-        "lib/jquery-2.1.1.min.js",
-        "lib/jquery.datetimepicker.js",
-        "lib/showdown.min.js",
-        "lib/handlebars-4.0.5.min.js",
+        "lib/jquery-3.4.1.min.js",
+        "lib/jquery.datetimepicker-2.5.20.full.min.js",
+        "lib/handlebars-4.7.3.min.js",
+        "lib/showdown-1.9.1.min.js",
         "scripts/utils/utilities.js",
         "scripts/utils/capitalize.js",
         "scripts/utils/modal.js",
@@ -44,7 +44,7 @@
         "scripts/wordpress/modules/postPage.js",
         "scripts/wordpress/newPostPage.js"
       ],
-      "css": [ "css/jquery.datetimepicker.css" ],
+      "css": [ "css/jquery.datetimepicker-2.5.20.min.css" ],
       "run_at": "document_idle"
     }
   ],
