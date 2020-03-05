@@ -41,7 +41,6 @@
         "scripts/wordpress/modules/publishWidget.js",
         "scripts/wordpress/modules/tagsWidget.js",
         "scripts/wordpress/modules/categoriesWidget.js",
-        "scripts/wordpress/modules/postPage.js",
         "scripts/wordpress/newPostPage.js"
       ],
       "css": [ "css/jquery.datetimepicker-2.5.20.min.css" ],

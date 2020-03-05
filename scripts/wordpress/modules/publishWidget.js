@@ -4,6 +4,8 @@
 
 const PublishWidget = (function PublishWidget() {
   const $timeStampDiv = $('#timestampdiv');
+  const $wpSchedulePostDropdown = $('.timestamp-wrap'); // WP own schedule dropdown
+
   let $datepicker;
 
   // WP default datetime field IDs
@@ -45,6 +47,7 @@ const PublishWidget = (function PublishWidget() {
   return {
     init() {
       addDatePicker();
+      $wpSchedulePostDropdown.remove();
       attachEventHandlers();
     },
   };

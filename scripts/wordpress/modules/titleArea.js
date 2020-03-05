@@ -9,6 +9,7 @@ const TitleArea = (function TitleArea() {
   const $titleInput = $('#title');
   const $editorField = $('.wp-editor-area');
   const $permalinkRow = $('#edit-slug-box').parent();
+  const $goodHeadlineButton = $('.CosheduleButtonContainer');
   let $scoreFrame; // $(".headalyze")
   let $scoreInfo; // $(".headalyze-info")
   let $titleCapBtn; // $("#bandaid-capitalize-and-check")
@@ -231,18 +232,19 @@ const TitleArea = (function TitleArea() {
         $subBtn = $('#bandaid-capitalize-subheadings');
       })
 
-    // Get Link Buttons template and append it to permalink row
-    // Link Buttons template adds:
-    // Rebuild Link button
-    // Copy Link button
+      // Get Link Buttons template and append it to permalink row
+      // Link Buttons template adds:
+      // Rebuild Link button
+      // Copy Link button
       .then(() => getTemplate('link-buttons.html'))
       .then((html) => $permalinkRow.append(html))
       .then(() => {
         $copyLinkButton = $('#bandaid-copy-link');
         $rebuildLinkButton = $('#bandaid-rebuild-link');
+        $goodHeadlineButton.remove(); // Remove Is this a good headline?
       })
 
-    // Kick everything off
+      // Kick everything off
       .then(() => attachEventHandlers());
   }
 

@@ -29,7 +29,3 @@ CategoriesWidget.init();
 // Tags widget
 // Adds "Copy tags" button
 TagsWidget.init();
-
-// Generic changes applied to whole page
-// Hides unnecessary elements
-PostPage.init();
