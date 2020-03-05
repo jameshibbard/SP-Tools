@@ -1,3 +1,6 @@
+/* exported getAllMatches linkOk copyTextToClipboard getTemplate pageFactory */
+/* global chrome */
+
 // Miscellaneous functions without a specific context
 
 /**
@@ -8,8 +11,9 @@
  * @returns {Array}
  */
 function getAllMatches(myRe, str) {
-  var returnData = [];
-  var myArray;
+  const returnData = [];
+  let myArray;
+  /* eslint-disable-next-line no-cond-assign */
   while ((myArray = myRe.exec(str)) !== null) {
     returnData.push(myArray);
   }
@@ -23,8 +27,8 @@ function getAllMatches(myRe, str) {
  * @returns {boolean}
  */
 function linkOk(url) {
-  var r = new RegExp('^(?:[a-z]+:)?//', 'i');
-  return (r.test(url) || url.startsWith("mailto:") || url.startsWith("#"));
+  const r = new RegExp('^(?:[a-z]+:)?//', 'i');
+  return (r.test(url) || url.startsWith('mailto:') || url.startsWith('#'));
 }
 
 /**
@@ -33,24 +37,13 @@ function linkOk(url) {
  * @param text
  */
 function copyTextToClipboard(text) {
-  var copyFrom = document.createElement("textarea");
+  const copyFrom = document.createElement('textarea');
   copyFrom.textContent = text;
-  var body = document.getElementsByTagName('body')[0];
+  const body = document.getElementsByTagName('body')[0];
   body.appendChild(copyFrom);
   copyFrom.select();
   document.execCommand('copy');
   body.removeChild(copyFrom);
-}
-
-/**
- * Turns a DOM element tree into HTML. Note that all event listeners are lost.
- * @param parentElement
- * @returns {*|jQuery}
- */
-function getHtmlFromElements(parentElement) {
-  var holder = document.createElement('div');
-  $(holder).append(parentElement);
-  return $(holder).html();
 }
 
 /**
@@ -59,36 +52,9 @@ function getHtmlFromElements(parentElement) {
  * @returns {Promise<string>}
  * http://stackoverflow.com/a/14220323
  */
-function getTemplate(fileName){
-  var templateURL = chrome.runtime.getURL(`/fragments/${fileName}`);
-  return fetch(templateURL).then(response => response.text());
-}
-
-function insertAt(content, newString, position = 0) {
-  const textBefore = content.substring(0, position);
-  const textAfter = content.substring(position, content.length);
-
-  return `${textBefore}${newString}${textAfter}`;
-}
-
-function getMatchingElements(html, pattern) {
-  const matches = getAllMatches(pattern, html);
-  return matches.map((match) => {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = match[0];
-    return wrapper.firstChild;
-  });
-}
-
-function getAllHeadings(html) {
-  const rx = /<(h[2-6]).+>(.+)<\/\1>/ig;
-  const elems = getMatchingElements(html, rx);
-
-  return elems.map(el => ({
-    level: el.tagName.toLowerCase(),
-    title: el.textContent,
-    slug: el.id,
-  }));
+function getTemplate(fileName) {
+  const templateURL = chrome.runtime.getURL(`/fragments/${fileName}`);
+  return fetch(templateURL).then((response) => response.text());
 }
 
 function pageFactory(dom = document) {
@@ -138,9 +104,4 @@ function pageFactory(dom = document) {
     enablePublishBtn,
     getSlug,
   };
-}
-
-function getMDLink(obj){
-  const title = (obj.title === '') ? '' : ` "${obj.title}"`;
-  return `[${obj.text}](${obj.href}${title})`;
 }

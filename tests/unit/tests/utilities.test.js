@@ -1,4 +1,4 @@
-/* global require, describe, it, capitalize */
+/* global require, describe, it, beforeEach */
 /* eslint-disable max-len */
 
 const { assert } = require('chai');
@@ -34,107 +34,6 @@ describe('getAllMatches', () => {
     const matches = getAllMatches(rx, html);
     assert.equal(matches.length, 1);
     assert.equal(matches[0][0], paragraph);
-  });
-});
-
-/* global insertAt */
-describe('insertAt', () => {
-  const string1 = '<p>Bruno says: </p>';
-  const string2 = '<em>PHP sucks</em>';
-  const position = 15;
-
-  it('should insert one string into another at the given location', () => {
-    const result = insertAt(string1, string2, position);
-    assert.equal(result, '<p>Bruno says: <em>PHP sucks</em></p>');
-  });
-
-  it('should insert at the beginning if no position supplied', () => {
-    const result = insertAt(string1, string2);
-    assert.equal(result, '<em>PHP sucks</em><p>Bruno says: </p>');
-  });
-});
-
-/* global getMatchingElements */
-describe('getMatchingElements', () => {
-  it('should return an array of Heading elements', () => {
-    const elements = getMatchingElements(html, headingRegex);
-    assert.equal(elements instanceof Array, true);
-    assert.equal(elements[0] instanceof window.HTMLElement, true);
-  });
-
-  it('should correctly convert string to DOM elements', () => {
-    const elements = getMatchingElements(html, headingRegex);
-    assert.equal(elements[0].id, 'firstheading');
-    assert.equal(elements[0].innerHTML, 'First heading');
-  });
-
-  it('should return an array of Paragraph elements', () => {
-    const rx = /<p>.*?<\/p>/ig;
-    const elements = getMatchingElements(html, rx);
-    assert.equal(elements.length, 1);
-    assert.equal(elements[0].innerHTML, 'Some test text in a paragraph');
-  });
-});
-
-/* global getAllHeadings */
-describe('getAllHeadings', () => {
-  it('should return an array', () => {
-    const headings = getAllHeadings(html);
-    assert.equal(headings instanceof Array, true);
-  });
-
-  it('should return headings in correct format', () => {
-    const headings = getAllHeadings(html);
-    const firstHeading = headings[0];
-    const desiredResult = { level: 'h2', title: 'First heading', slug: 'firstheading' };
-    assert.equal(JSON.stringify(firstHeading), JSON.stringify(desiredResult));
-  });
-
-  it('given an empty string, it should return an empty array', () => {
-    const headings = getAllHeadings('');
-    assert.equal(headings instanceof Array, true);
-    assert.equal(headings.length, 0);
-  });
-});
-
-/* global getMDLink beforeEach */
-describe('getMDLink', () => {
-  let linkObj;
-
-  beforeEach(() => {
-    linkObj = {
-      text: 'SitePoint',
-      href: 'https://www.sitepoint.com',
-      title: '',
-    };
-  });
-
-  it('should return a string', () => {
-    const MDLink = getMDLink(linkObj);
-    assert.equal(typeof MDLink === 'string', true);
-  });
-
-  it('should generate a MarkDown link from object', () => {
-    const MDLink = getMDLink(linkObj);
-    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com)');
-  });
-
-  it('should handle a title attribute', () => {
-    linkObj.title = 'Web Learning Resource';
-    const MDLink = getMDLink(linkObj);
-    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com "Web Learning Resource")');
-  });
-
-  it('should handle a title attribute', () => {
-    linkObj.text = '<code>SitePoint</code>';
-    const MDLink = getMDLink(linkObj);
-    assert.equal(MDLink, '[<code>SitePoint</code>](https://www.sitepoint.com)');
-  });
-
-  it('should ignore other attributes', () => {
-    linkObj.style = 'color: red;';
-    const MDLink = getMDLink(linkObj);
-    assert.equal(MDLink, '[SitePoint](https://www.sitepoint.com)');
   });
 });
 
@@ -261,6 +160,7 @@ describe('page object', () => {
     });
   });
 
+  /* global capitalize */
   // The capitalize function is a reasonable way to catch obvious errors, but there are a couple of cases it can't handle
   describe('capitalize function', () => {
     it('should return a string in title case', () => {
@@ -277,6 +177,7 @@ describe('page object', () => {
       assert.equal(capitalize('A Basic HTML5 Template For Any Project'), 'A Basic HTML5 Template for Any Project');
       assert.equal(capitalize('What is HTML5?'), 'What Is HTML5?');
       assert.equal(capitalize('The Rest is History'), 'The Rest Is History');
+      assert.equal(capitalize('The advantages of jQuery'), 'The Advantages of jQuery');
 
       // Undesired
       assert.equal(capitalize('Listen for “message” Event'), 'Listen For "Message" Event');
@@ -285,5 +186,28 @@ describe('page object', () => {
       assert.equal(capitalize('10 Handy npm Aliases'), '10 Handy Npm Aliases');
       assert.equal(capitalize('The <code>html</code> Element'), 'The <Code>Html</Code> Element');
     });
+  });
+});
+
+/* global linkOk */
+describe('linkOk', () => {
+  it('should return false for a link without a protocol', () => {
+    const result = linkOk('www.sitepoint.com');
+    assert.isFalse(result);
+  });
+
+  it('should return false for a nonsensical link', () => {
+    const result = linkOk('thisisntalink');
+    assert.isFalse(result);
+  });
+
+  it('should return true for a mailto link', () => {
+    const result = linkOk('mailto:james.hibbard@sitepoint.com');
+    assert.isTrue(result);
+  });
+
+  it('should return true for a fragment link', () => {
+    const result = linkOk('#subheading');
+    assert.isTrue(result);
   });
 });

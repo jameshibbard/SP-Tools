@@ -1,33 +1,35 @@
-function showModal(opts){
-  var callback = opts.callback || $.noop();
-  var buttonText = opts.buttonText || "";
+/* exported showModal */
+/* global getTemplate Handlebars */
 
-  function attachEventHandlers(){
-    $("#bandaid-modal-close, #bandaid-overlay").on("click", function(){
+function hideModal() {
+  $('#bandaid-overlay').remove();
+  $('#bandaid-modal').remove();
+}
+
+function showModal(opts) {
+  const callback = opts.callback || $.noop();
+  const buttonText = opts.buttonText || '';
+
+  function attachEventHandlers() {
+    $('#bandaid-modal-close, #bandaid-overlay').on('click', () => {
       hideModal();
     });
 
-    $(".actbutton button").on("click", callback);
+    $('.actbutton button').on('click', callback);
   }
 
-  var $wrap = $("#wpwrap");
-  var modalTemplate;
+  let modalTemplate;
 
-  getTemplate("modal.hbs")
-  .then(function(data){
-    modalTemplate = Handlebars.compile(data);
-    var html = modalTemplate({
-      modalHeading: opts.heading,
-      bodyHTML: opts.bodyHTML,
-      hasButton: "buttonText" in opts,
-      buttonText: opts.buttonText
+  getTemplate('modal.hbs')
+    .then((data) => {
+      modalTemplate = Handlebars.compile(data);
+      const html = modalTemplate({
+        modalHeading: opts.heading,
+        bodyHTML: opts.bodyHTML,
+        hasButton: 'buttonText' in opts,
+        buttonText,
+      });
+      $('#wpwrap').append(html);
+      attachEventHandlers();
     });
-    $("#wpwrap").append(html);
-    attachEventHandlers();
-  });
-}
-
-function hideModal(){
-  $("#bandaid-overlay").remove();
-  $("#bandaid-modal").remove();
 }

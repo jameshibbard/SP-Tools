@@ -1,6 +1,6 @@
 /* global require, describe, it, beforeEach, pageFactory */
 
-const assert = require('chai').assert;
+const { assert } = require('chai');
 const { include } = require('../helpers');
 
 include('scripts/wordpress/modules/validators.js');
@@ -14,27 +14,6 @@ beforeEach(() => {
     <textarea id="excerpt"></textarea>
   `;
   page = pageFactory(fakeDOM);
-});
-
-/* global authorMoreValidator */
-describe('authorMore validator', () => {
-  it('should return an error when given a string with no [author_more] shortcode', () => {
-    const expected = {
-      isValid: false,
-      message: 'Missing [author_more] shortcode',
-    };
-    const output = authorMoreValidator(page);
-
-    assert.equal(JSON.stringify(output), JSON.stringify(expected));
-  });
-
-  it('should return a success response when given a string containing [author_more]', () => {
-    page.editor.value = 'Blah blah [author_more] yo!';
-    const expected = { isValid: true };
-    const output = authorMoreValidator(page);
-
-    assert.equal(JSON.stringify(output), JSON.stringify(expected));
-  });
 });
 
 /* global relativeLinkValidator */

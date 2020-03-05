@@ -2,19 +2,6 @@
 /* exported excerptValidator, slugValidator */
 /* global getAllMatches, linkOk */
 
-function authorMoreValidator(page) {
-  const content = page.editor.value;
-
-  if (content.indexOf('[author_more]') === -1) {
-    return {
-      isValid: false,
-      message: 'Missing [author_more] shortcode',
-    };
-  }
-
-  return { isValid: true };
-}
-
 function relativeLinkValidator(page) {
   const rx = /<a\s+(?:[^>]*?\s+)?href=(['"])([^"]*)\1/ig;
   const matches = getAllMatches(rx, page.editor.value);
