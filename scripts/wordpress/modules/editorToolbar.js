@@ -46,9 +46,43 @@ const EditorToolbar = (function EditorToolbar() {
     $editorToolbar.append($convertButton);
   }
 
+  function toggleRelSponsored(text, toggleAction) {
+    const doc = new DOMParser().parseFromString(text, 'text/html');
+
+    if (toggleAction === 'add') {
+      const links = doc.querySelectorAll('a');
+      links.forEach((link) => { link.setAttribute('rel', 'sponsored'); });
+    } else {
+      const links = doc.querySelectorAll('a[rel="sponsored"]');
+      links.forEach((link) => { link.removeAttribute('rel'); });
+    }
+
+    return doc.querySelector('body').innerHTML;
+  }
+
+  function addRelSponsoredButton() {
+    const $relSponsoredButton = $('<input />', {
+      type: 'button',
+      value: 'rel="sponsored"',
+      class: 'ed_button button button-small',
+      id: 'rel-sponsored-toggle',
+      'data-toggle': 'add',
+      title: "Toggle rel='sponsored' for all links",
+      click() {
+        const editorContent = $mainTextArea.val();
+        const toggleAction = $(this).data('toggle');
+        const neweditorContent = toggleRelSponsored(editorContent, toggleAction);
+        $(this).data('toggle', toggleAction === 'add' ? 'remove' : 'add');
+        $mainTextArea.val(neweditorContent);
+      },
+    });
+    $editorToolbar.append($relSponsoredButton);
+  }
+
   return {
     init() {
       addMDButton();
+      addRelSponsoredButton();
     },
   };
 }());

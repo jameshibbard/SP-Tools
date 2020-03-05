@@ -22,6 +22,18 @@ module.exports = {
       .waitForElementPresent('#bandaid-md', 5000)
       .assert.containsText('.proofreader-main-row > td', 'All good')
 
+      // Test rel=sponsored toggle
+      .setValue('#content', '[SitePoint](https://sitepoint.com)\n[Twitter](https://twitter.com/jchibbard?lang=en)')
+      .click('#bandaid-md')
+      .assert.valueContains('#content', '<a href="https://sitepoint.com">SitePoint</a>')
+      .assert.valueContains('#content', '<a href="https://twitter.com/jchibbard?lang=en">Twitter</a>')
+      .click('#rel-sponsored-toggle')
+      .assert.valueContains('#content', '<a href="https://sitepoint.com" rel="sponsored">SitePoint</a>')
+      .assert.valueContains('#content', '<a href="https://twitter.com/jchibbard?lang=en" rel="sponsored">Twitter</a>')
+      .click('#rel-sponsored-toggle')
+      .assert.valueContains('#content', '<a href="https://sitepoint.com">SitePoint</a>')
+      .assert.valueContains('#content', '<a href="https://twitter.com/jchibbard?lang=en">Twitter</a>')
+
       // Test MD > HTML conversion
       .setValue('#content', '## level 2 heading\n### level 3 heading')
       .click('#bandaid-md')
@@ -53,12 +65,9 @@ module.exports = {
       .setValue('#title', ', So it is!')
       .pause(1000)
       .click('#bandaid-rebuild-link')
+      .pause(1000)
 
       // Test Copy Link button
-      // Somehow the copy link is not visible to click, so bring it back into view
-      .moveToElement('.bandaid-copy-link', 10, 10)
-      .waitForElementVisible('.bandaid-copy-link', 1500)
-      .pause(1500)
       .click('.bandaid-copy-link')
       .click('#new-tag-post_tag')
       .keys(browser.Keys.CONTROL)

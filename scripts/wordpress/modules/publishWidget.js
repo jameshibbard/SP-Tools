@@ -47,7 +47,7 @@ const PublishWidget = (function PublishWidget() {
   return {
     init() {
       addDatePicker();
-      $wpSchedulePostDropdown.remove();
+      $wpSchedulePostDropdown.hide();
       attachEventHandlers();
     },
   };
