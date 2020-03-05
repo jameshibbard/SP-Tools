@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2016 James Hibbard & Nilson Jacques
+Copyright (c) 2020 James Hibbard & Nilson Jacques
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
