@@ -43,7 +43,8 @@ In the WordPress backend, the extension adds the following:
   - `[special]` shortcode tags are swapped out in the excerpt for their HTML counterparts (`<p class="wp-special">...</p>`)
 - Clicking into the _Publish_ field will open a date picker, allowing you to more comfortably select the date on which the post is to be published. Remember the times shown are in [Pacific Standard Time](https://www.timeanddate.com/time/zones/pst).
 - It adds a checkbox to the categories widget. Clicking this when composing a _new_ post, will toggle any categories that are not associated with your particular channel. You can set your channel on the extension's options page.
--  A _Copy Tags_ button which gives you a comma separated list of tags copied to the clipboard.
+- A _Copy Tags_ button which gives you a comma separated list of tags copied to the clipboard.
+- A _rel="sponsored"_ button that toggles the `rel` attribute of all links in a post as being `sponsored`.
 
 ### Context Menu
 
