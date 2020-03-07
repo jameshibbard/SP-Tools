@@ -21,8 +21,7 @@
     {
       "matches": [ "*://*.sitepoint.com/*" ],
       "js": [ "scripts/main-site/index.js" ],
-      "css": [ "css/styles.css" ],
-      "run_at": "document_idle"
+      "css": [ "css/styles.css" ]
     },
     {
       "matches": [ "https://www.sitepoint.com/wp-admin/post*" ],
@@ -43,8 +42,7 @@
         "scripts/wordpress/modules/categoriesWidget.js",
         "scripts/wordpress/newPostPage.js"
       ],
-      "css": [ "css/jquery.datetimepicker-2.5.20.min.css" ],
-      "run_at": "document_idle"
+      "css": [ "css/jquery.datetimepicker-2.5.20.min.css" ]
     }
   ],
 
