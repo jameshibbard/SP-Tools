@@ -37,11 +37,9 @@ const MainSite = (function MainSite() {
   }
 
   function buildGoogleAnalyticsHref() {
-    // Each article has a meta tag that tells you when it was published
-    // <meta property="article:published_time" content="2020-02-20T18:00:25+00:00" />
-    // We can use this to get the from date
-    const metaTag = document.querySelector('meta[property="article:published_time"]');
-    const fromDate = metaTag.getAttribute('content').replace(/-/g, '').replace(/T.*$/, '');
+    const meta = document.querySelector('div[class^="styledHeader__Metabox"]');
+    const time = meta.querySelector('time');
+    const fromDate = time.getAttribute('datetime').replace(/-/g, '');
 
     // Use the toISOString function to get today's date as yyyymmdd
     // https://stackoverflow.com/a/28431880
@@ -73,11 +71,18 @@ const MainSite = (function MainSite() {
   }
 
   function init() {
-    const pageHasArticleMetaTag = document.querySelectorAll('meta[content="article"]').length;
-    const pageHasTopLevelHeading = document.querySelectorAll('h1').length;
-    const isArticle = pageHasArticleMetaTag && pageHasTopLevelHeading;
+    const isArticle = document.querySelectorAll('article[aria-label^="Article title:"]').length;
 
     if (isArticle) attachGoogleAnalyticsLink();
+
+    chrome.storage.sync.get(['infinite-scroll'], (res) => {
+      if (!res['infinite-scroll']) return;
+      document.body.classList.add('infinite-scroll-disabled');
+
+      window.addEventListener('scroll', (event) => {
+        event.stopPropagation();
+      }, true);
+    });
 
     // Is 'clean-up-ui' set in the options?
     chrome.storage.sync.get(['clean-up-ui'], (res) => {
@@ -86,21 +91,24 @@ const MainSite = (function MainSite() {
       // Elements to remove
       // Don't mess with the modals, as that kills scrolling
       [
-        'sp-social-share', // Share widget
-        '.sendpulse-prompt', // Web push notifications widget
-        '.acsb-trigger', // Accesiblity widget
-        'featured-posts', // Featured posts, obvs
-        '#navigation-bar+.NavBar_offsetSpacer', // Spacer for sticky nav bar
-        '.qc-cmp-persistent-link', // Privacy popup trigger
+        'a.qc-cmp-persistent-link', // Privacy popup trigger
+        '#skip-navigation + div', // Job banner
+        'div[type="book"]', // advert next to article header
+        'div[type="books_new"]', // new books in sidebar
+        'div[class^="styledPopularBooks__StyledPopularBooks"]', // popular books in sidebar
+        'a.qc-cmp-persistent-link', // Privacy popup trigger
+        '.qc-cmp-ui-container', // Privacy popup trigger
         '.sp-smartbar', // Offers bar
+        'h1 + div + div', // Featured posts. Past caring, frankly...
+        'a.qc-cmp-persistent-link', // Privacy popup trigger again, as it often gets added back in
       ]
         .forEach((selector) => removeElement(selector));
 
-      // Make navbar unsticky
-      document.querySelector('#navigation-bar').classList.remove('l-p-fix');
-
       // Remove smartbar offset
       document.body.style['margin-top'] = 0;
+
+      // Undo the overflow:hidden property applied to the body by the privacy popup
+      document.body.style.overflow = 'auto';
     });
   }
 

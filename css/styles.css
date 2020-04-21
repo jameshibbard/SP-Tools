@@ -19,6 +19,11 @@ a.ga-link:visited {
   display: none !important;
 }
 
+/* Hide the infinite scroll spinner */
+body.infinite-scroll-disabled div[class^="styledLoader__"]{
+  display: none;
+}
+
 /* WordPress */
 #serie_post_shorttitle{
   max-width: 100%;

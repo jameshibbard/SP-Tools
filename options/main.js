@@ -63,19 +63,6 @@ checkBoxes.forEach((cb) => {
   });
 });
 
-// When infinite scroll is toggled, we need to send a message to the background script
-// to tell it to add/remove the chrome.webRequest.onBeforeRequest listener
-// https://developer.chrome.com/extensions/storage#examples
-chrome.storage.onChanged.addListener((changes) => {
-  const [key] = Object.keys(changes);
-
-  if (key === 'infinite-scroll') {
-    chrome.runtime.sendMessage({ message: 'TOGGLE-INFINITE-SCROLL' }, (response) => {
-      console.log(response.message);
-    });
-  }
-});
-
 // Kick everything off
 renderChannelOptions();
 populateCheckBoxes();
