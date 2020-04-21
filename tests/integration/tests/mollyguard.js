@@ -8,13 +8,13 @@ module.exports = {
   'Test mollyguard functionality': (browser) => {
     browser
       // Login to WP Dashboard
-      .url('https://www.sitepoint.com/wp-login.php')
+      .url('https://editor.sitepoint.com/wp-login.php')
       .setValue('#user_login', credentials.username)
       .setValue('#user_pass', credentials.password)
       .click('#wp-submit')
 
       // Go to New Post Page
-      .url('https://www.sitepoint.com/wp-admin/post-new.php')
+      .url('https://editor.sitepoint.com/wp-admin/post-new.php')
       .waitForElementPresent('#misc-publishing-actions', 5000)
 
       // Test that publish button is disabled when errors are present in status area

@@ -10,13 +10,13 @@ module.exports = {
   'Test WordPress Mods': (browser) => {
     browser
       // Login to WP Dashboard
-      .url('https://www.sitepoint.com/wp-login.php')
+      .url('https://editor.sitepoint.com/wp-login.php')
       .setValue('#user_login', credentials.username)
       .setValue('#user_pass', credentials.password)
       .click('#wp-submit')
 
       // Go to New Post Page
-      .url('https://www.sitepoint.com/wp-admin/post-new.php')
+      .url('https://editor.sitepoint.com/wp-admin/post-new.php')
 
       // Assert empty document displays as 'All good'
       .waitForElementPresent('#bandaid-md', 5000)

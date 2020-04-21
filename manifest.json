@@ -14,17 +14,17 @@
     "storage",
     "webRequest",
     "webRequestBlocking",
-    "*://*.sitepoint.com/"
+    "https://*.sitepoint.com/"
   ],
 
   "content_scripts": [
     {
-      "matches": [ "*://*.sitepoint.com/*" ],
+      "matches": [ "https://*.sitepoint.com/*" ],
       "js": [ "scripts/main-site/index.js" ],
       "css": [ "css/styles.css" ]
     },
     {
-      "matches": [ "https://www.sitepoint.com/wp-admin/post*" ],
+      "matches": [ "https://*.sitepoint.com/wp-admin/post*" ],
       "js": [
         "lib/jquery-3.4.1.min.js",
         "lib/jquery.datetimepicker-2.5.20.full.min.js",
