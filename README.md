@@ -12,11 +12,10 @@ The extension runs on the main site and on the WordPress backend.
 
 On channel pages and on post pages, it hides the following elements:
 
-- Share widget
-- Web push notifications widget
-- Accesiblity widget
+- Job banner
+- Book ads
 - Featured posts
-- Privacy popup trigger
+- Privacy popup + trigger
 - Offers bar
 
 It also adds an _Open in Google Analytics_ link to posts. Clicking on this will take you to the post's Google Analytics page. Obviously, this relies on you being logged in to Google Analytics.

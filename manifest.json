@@ -3,18 +3,18 @@
 
   "name": "SP Tools",
   "description": "A Chrome extension to help with various SitePoint editing tasks",
-  "version": "0.18.2",
+  "version": "0.18.3",
 
   "background": {
     "scripts": [ "scripts/background.js" ]
   },
 
   "permissions": [
+    "activeTab",
     "contextMenus",
     "storage",
-    "webRequest",
-    "webRequestBlocking",
-    "https://*.sitepoint.com/"
+    "https://*.sitepoint.com/",
+    "webNavigation"
   ],
 
   "content_scripts": [
