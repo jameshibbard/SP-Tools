@@ -80,21 +80,25 @@ const MainSite = (function MainSite() {
       // Elements to remove
       // Don't mess with the modals, as that kills scrolling
       [
-        'a.qc-cmp-persistent-link', // Privacy popup trigger
         '#skip-navigation + div', // Job banner
         'div[type="book"]', // advert next to article header
         'div[type="books_new"]', // new books in sidebar
         'div[class^="styledPopularBooks__StyledPopularBooks"]', // popular books in sidebar
         'a.qc-cmp-persistent-link', // Privacy popup trigger
         '.qc-cmp-ui-container', // Privacy popup
-        '.sp-smartbar', // Offers bar
+        'div.qc-cmp-showing', // Privacy popup (it regenerates itself if removed once)
+        'div[role="smartbar"]', // Offers bar
         'h1 + div + div', // Featured posts. Past caring, frankly...
-        'a.qc-cmp-persistent-link', // Privacy popup trigger again, as it often gets added back in
+        '#bottom-bar', // Popup, currently offering FREE JavaScript Book
+        'div[class^="styledPromoteBox__"]', // ads in sidebar
       ]
         .forEach((selector) => removeElement(selector));
 
       // Remove smartbar offset
-      document.body.style['margin-top'] = 0;
+      setTimeout(() => {
+        const header = document.querySelector('header[class^="styledHeader"');
+        if (header) header.style['margin-top'] = 0;
+      }, 1500);
 
       // Undo the overflow:hidden property applied to the body by the privacy popup
       document.body.style.overflow = 'auto';
