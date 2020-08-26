@@ -3,27 +3,10 @@
 'use strict';
 
 const MainSite = (function MainSite() {
-  function removeElement(selector, timeElapsed = 0) {
-    const interval = 250;
-    const maxDelay = 10000;
-    const el = document.querySelector(selector);
-
-    if (timeElapsed > maxDelay) return;
-
-    if (el) {
-      el.parentNode.removeChild(el);
-    } else {
-      window.setTimeout(() => {
-        const newTimeElapsed = timeElapsed + interval;
-        removeElement(selector, newTimeElapsed);
-      }, interval);
-    }
-  }
-
   function buildGoogleAnalyticsHref() {
-    const meta = document.querySelector('div[class^="styledHeader__Metabox"]');
-    const time = meta.querySelector('time');
-    const fromDate = time.getAttribute('datetime').replace(/-/g, '');
+    // Grab time in yyyy-mm-dd format
+    const time = document.querySelector('time');
+    const fromDate = time.getAttribute('dateTime').replace(/-/g, '');
 
     // Use the toISOString function to get today's date as yyyymmdd
     // https://stackoverflow.com/a/28431880
@@ -46,23 +29,23 @@ const MainSite = (function MainSite() {
   }
 
   function attachGoogleAnalyticsLink() {
-    const gaLink = document.createElement('a');
-    gaLink.setAttribute('href', buildGoogleAnalyticsHref());
-    gaLink.textContent = 'Open in Google Analytics';
-    gaLink.setAttribute('class', 'ga-link');
-    gaLink.target = '_blank';
-
     // When infinite scroll is enabled, we can have more than one h1 element
     const headings = document.querySelectorAll('h1');
     const mostRecentHeading = headings[headings.length - 1];
-    mostRecentHeading.insertAdjacentElement('afterend', gaLink);
+    const header = mostRecentHeading.parentElement;
+    const headerHasLink = header.querySelector('.ga-link');
+
+    const gaLink = document.createElement('a');
+    gaLink.setAttribute('href', buildGoogleAnalyticsHref());
+    gaLink.textContent = 'Open in Google Analytics';
+    gaLink.setAttribute('class', 'ga-link m1pdrmq3');
+    gaLink.target = '_blank';
+
+    // Check for presence of link, as AMP periodically triggers urlchange
+    if (!headerHasLink) header.appendChild(gaLink);
   }
 
   function init() {
-    const isArticle = document.querySelectorAll('article[aria-label^="Article title:"]').length;
-
-    if (isArticle) attachGoogleAnalyticsLink();
-
     // Is 'infinite-scroll' set in the options?
     chrome.storage.sync.get(['infinite-scroll'], (res) => {
       if (!res['infinite-scroll']) return;
@@ -76,33 +59,12 @@ const MainSite = (function MainSite() {
     // Is 'clean-up-ui' set in the options?
     chrome.storage.sync.get(['clean-up-ui'], (res) => {
       if (!res['clean-up-ui']) return;
-
-      // Elements to remove
-      // Don't mess with the modals, as that kills scrolling
-      [
-        '#skip-navigation + div', // Job banner
-        'div[type="book"]', // advert next to article header
-        'div[type="books_new"]', // new books in sidebar
-        'div[class^="styledPopularBooks__StyledPopularBooks"]', // popular books in sidebar
-        'a.qc-cmp-persistent-link', // Privacy popup trigger
-        '.qc-cmp-ui-container', // Privacy popup
-        'div.qc-cmp-showing', // Privacy popup (it regenerates itself if removed once)
-        'div[role="smartbar"]', // Offers bar
-        'h1 + div + div', // Featured posts. Past caring, frankly...
-        '#bottom-bar', // Popup, currently offering FREE JavaScript Book
-        'div[class^="styledPromoteBox__"]', // ads in sidebar
-      ]
-        .forEach((selector) => removeElement(selector));
-
-      // Remove smartbar offset
-      setTimeout(() => {
-        const header = document.querySelector('header[class^="styledHeader"');
-        if (header) header.style['margin-top'] = 0;
-      }, 1500);
-
-      // Undo the overflow:hidden property applied to the body by the privacy popup
-      document.body.style.overflow = 'auto';
+      document.body.classList.add('clean-up-ui');
     });
+
+    const isArticle = document.querySelectorAll('div[aria-label="Article sidebar"]').length;
+    // Attach link with slight delay, as otherwise it sometimes vanishes again
+    if (isArticle) setTimeout(attachGoogleAnalyticsLink, 1000);
   }
 
   return {
@@ -118,9 +80,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.text) {
     switch (msg.text) {
       case 'urlChanged':
-        if (isSitePoint && !isWordPress) {
-          MainSite.init();
-        }
+        // Runs on subsequent navigation
+        if (isSitePoint && !isWordPress) MainSite.init();
         // https://support.google.com/chrome/thread/2047906?hl=en&msgid=13138318
         sendResponse(true);
         break;
@@ -137,4 +98,5 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 });
 
 // Only run on sitepoint.com main site
+// Runs once when site loads
 if (isSitePoint && !isWordPress) MainSite.init();

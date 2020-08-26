@@ -1,10 +1,9 @@
 /* Google Analytics link */
 a.ga-link {
   position: relative;
-  top: -25px;
   color: white;
   text-decoration: underline;
- }
+}
 
 a.ga-link:hover {
   text-decoration: none;
@@ -14,22 +13,94 @@ a.ga-link:visited {
   color: white;
 }
 
-/* Hide WordPress update nag box and W3 Total Cache banner */
-#edge-mode, div.update-nag, #carbonads{
-  display: none !important;
-}
+/*
+  TIDY UP UI ON MAIN SITE
+*/
 
 /* Hide the infinite scroll spinner */
-body.infinite-scroll-disabled div[class^="styledLoader__"]{
+body.infinite-scroll-disabled svg[data-icon="spinner"]{
   display: none;
 }
 
-/* WordPress */
-#serie_post_shorttitle{
+/* Quantcast privacy popup */
+body.clean-up-ui .qc-cmp-ui-container.qc-cmp-showing {
+  display: none !important;
+}
+/* Undo the overflow:hidden property applied to the body by the privacy popup */
+body.clean-up-ui  {
+  overflow: auto !important;
+}
+
+/* Smart bar at top of page with countdown timer */
+div[role="smartbar"]{
+  display: none !important;
+}
+div#gatsby-focus-wrapper > header {
+  margin-top: 0px !important;
+}
+
+/* Blog and channel page featured articles */
+body.clean-up-ui main > div:nth-of-type(2) > section {
+  display: none !important;
+}
+
+/* Article page free book popup in footer e.g. FREE Node.js Book */
+body.clean-up-ui #bottom-bar {
+  display: none !important;
+}
+
+/*
+  Article page book advert in header e.g. Free JavaScript Book!
+  This later turns into a Google ad
+*/
+body.clean-up-ui div[data-type="book"] {
+  display: none !important;
+}
+
+/* Article page - clear everything out of sidebar */
+body.clean-up-ui div[aria-label="Article sidebar"] > div {
+  display: none !important;
+}
+/* Apart from the author's bio */
+body.clean-up-ui div[aria-label="Article sidebar"] > div:first-child {
+  display: block !important;
+}
+
+/* Forums smartbar */
+body.clean-up-ui .sp-smartbar {
+  display: none !important;
+}
+
+/* Forums Google ads */
+#main-outlet > div:first-child {
+  display: none !important;
+}
+.topic-timeline + div {
+  display: none !important;
+}
+div[id^="google_ads_iframe"]{
+  display: none !important;
+}
+
+/* Forums in post advert e.g. Level up your JavaScript skills */
+#community-ad-unit {
+  display: none !important;
+}
+
+/*
+  WORDPRESS
+*/
+
+/* Hide WordPress update nag box and W3 Total Cache banner */
+#edge-mode, div.update-nag, #carbonads {
+  display: none !important;
+}
+
+#serie_post_shorttitle {
   max-width: 100%;
 }
 
-#mollyguard{
+#mollyguard {
   visibility: hidden;
 }
 
@@ -123,7 +194,6 @@ td.error {
 }
 
 /* Modal window styles */
-
 #bandaid-modal {
   z-index: 100000;
   width: 700px;
@@ -225,7 +295,7 @@ td.error {
   margin-left: 4px !important;
 }
 
-.parsely-link-block.channel{
+.parsely-link-block.channel {
   line-height: 1.6;
   font-size: .875rem;
   position: relative;
